@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" name="add_post" class="btn btn-info">Thêm thương hiệu</button>
+                                <button type="submit" name="add_post" class="btn btn-info">Thêm bài viết</button>
                                 </form>
                             </div>
 

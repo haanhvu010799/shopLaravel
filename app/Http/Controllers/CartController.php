@@ -8,6 +8,7 @@ use Session;
 use App\Http\Requests;
 use App\Slider;
 use Illuminate\Support\Facades\Redirect;
+use App\CatePost;
 use Cart;
 use App\Coupon;
 session_start();
@@ -47,21 +48,22 @@ class CartController extends Controller
         }else{
             return redirect()->back()->with('error','Mã giảm giá không đúng');
         }
-    }   
+    }
     public function gio_hang(Request $request){
-         //seo 
+         //seo
          //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
+        $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
 
-        $meta_desc = "Giỏ hàng của bạn"; 
+        $meta_desc = "Giỏ hàng của bạn";
         $meta_keywords = "Giỏ hàng Ajax";
         $meta_title = "Giỏ hàng Ajax";
         $url_canonical = $request->url();
         //--seo
-        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
 
-        return view('pages.cart.cart_ajax')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
+        return view('pages.cart.cart_ajax')->with('category_post',$category_post)->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
     }
     public function add_cart_ajax(Request $request){
         // Session::forget('cart');
@@ -100,10 +102,10 @@ class CartController extends Controller
             );
             Session::put('cart',$cart);
         }
-       
+
         Session::save();
 
-    }   
+    }
     public function delete_product($session_id){
         $cart = Session::get('cart');
         // echo '<pre>';
@@ -165,9 +167,9 @@ class CartController extends Controller
     public function save_cart(Request $request){
         $productId = $request->productid_hidden;
         $quantity = $request->qty;
-        $product_info = DB::table('tbl_product')->where('product_id',$productId)->first(); 
+        $product_info = DB::table('tbl_product')->where('product_id',$productId)->first();
 
-    
+
         // Cart::add('293ad', 'Product 1', 1, 9.99, 550);
         // Cart::destroy();
         $data['id'] = $product_info->product_id;
@@ -180,17 +182,17 @@ class CartController extends Controller
         // Cart::destroy();
         return Redirect::to('/show-cart');
      //Cart::destroy();
-       
+
     }
     public function show_cart(Request $request){
-        //seo 
-        $meta_desc = "Giỏ hàng của bạn"; 
+        //seo
+        $meta_desc = "Giỏ hàng của bạn";
         $meta_keywords = "Giỏ hàng";
         $meta_title = "Giỏ hàng";
         $url_canonical = $request->url();
         //--seo
-        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
         return view('pages.cart.show_cart')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     public function delete_to_cart($rowId){
@@ -203,5 +205,5 @@ class CartController extends Controller
         Cart::update($rowId,$qty);
         return Redirect::to('/show-cart');
     }
-    
+
 }

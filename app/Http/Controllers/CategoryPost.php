@@ -44,10 +44,7 @@ class CategoryPost extends Controller
       return view('admin.category_post.list_category')->with(compact('category_post'));
     }
 
-    public function danh_muc_bai_viet($cate_post_slug)  {
 
-
-    }
     public function edit_category_post($category_post_id){
           $this->AuthLogin();
           $category_post= CatePost::find($category_post_id);

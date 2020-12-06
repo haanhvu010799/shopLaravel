@@ -164,14 +164,14 @@
                                 <li><a href="{{URL::to('/trang-chu')}}" class="active">Trang chủ</a></li>
                                 <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        @foreach($category as $key => $danhmuc)
+                                        @foreach($category_post as $key => $danhmuc)
                                         <li><a href="{{URL::to('/danh-muc/'.$danhmuc->slug_category_product)}}">{{$danhmuc->category_name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
 
                                 <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
-
+                                <!-- //Danh muc bai viet -->
                                 <li class="dropdown"><a href="#">Bài Viết<i class="fa fa-angle-down"></i></a>
                                   <ul role="menu" class="sub-menu">
                                       @foreach($category_post as $key => $danhmucbaiviet)
