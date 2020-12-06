@@ -51,6 +51,7 @@ class PostController extends Controller
               Session::put('message','Thêm bài viết thành công');
               return redirect()->back();
           }
+          // Cho phép để ảnh trống
           else{
             $post->post_image=' ';
           	$post->save();
