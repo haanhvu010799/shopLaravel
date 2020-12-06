@@ -44,6 +44,7 @@
             </th>
             <th>Tên danh mục</th>
             <th>Slug</th>
+            <th>Nội dung </th>
             <th>Hiển thị</th>
 
             <th style="width:30px;"></th>
@@ -55,12 +56,13 @@
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{ $cate_post->cate_post_name}}</td>
             <td>{{ $cate_post->cate_post_slug}}</td>
+            <td>{{$cate_post->cate_post_desc}}</td>
             <td><span class="text-ellipsis">
-              <!-- @if($cate_post->cate_post_status==0)
+              @if($cate_post->cate_post_status==0)
                 Hiển thị
               @else
                   Ẩn
-              @endif -->
+              @endif
             </span></td>
             <td>
               <a href="{{URL::to('/edit-category-post/'.$cate_post->cate_post_id)}}" class="active styling-edit" ui-toggle-class="">

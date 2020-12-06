@@ -18,8 +18,8 @@ class HomeController extends Controller
     }
     public function send_mail(){
          //send mail
-                $to_name = "Hieu Tan Tutorial";
-                $to_email = "hieuchance2018@gmail.com";//send to this email
+                $to_name = "Hà Anh Vũ";
+                $to_email = "haanhvu010799@gmail.com";//send to this email
 
 
                 $data = array("name"=>"Mail từ tài khoản Khách hàng","body"=>'Mail gửi về vấn về hàng hóa'); //body of mail.blade.php
@@ -35,7 +35,8 @@ class HomeController extends Controller
 
     public function index(Request $request){
         //CategoryPost
-        $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
+        // $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
+        $category_post=DB::table('tbl_category_post')->where('cate_post_status','0')->orderBy('cate_post_id','desc')->get();
         //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
         //seo

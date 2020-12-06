@@ -30,8 +30,14 @@ Route::post('/admin-dashboard','AdminController@dashboard');
 Route::get('/add-category-post','CategoryPost@add_category_post');
 Route::get('/all-category-post','CategoryPost@all_category_post');
 Route::post('/save-category-post','CategoryPost@save_category_post');
-Route::get('/danh-muc-bai-viet/{cate_post_slug}','CategoryPost@danh_muc_bai_viet');
 
+Route::get('/danh-muc-bai-viet/{cate_post_slug}','CategoryPost@danh_muc_bai_viet');
+Route::get('/edit-category-post/{category_post_id}','CategoryPost@edit_category_post');
+Route::post('/update-category-post/{cate_id}','CategoryPost@update_category_post');
+Route::get 	('/delete-category-post/{cate_id}','CategoryPost@delete_category_post');
+//Bài viết
+Route::get('/add-post','PostController@add_post');
+Route::post('/save-post','PostController@save_post');
 
 //Category Product
 Route::get('/add-category-product','CategoryProduct@add_category_product');
@@ -41,7 +47,6 @@ Route::get('/all-category-product','CategoryProduct@all_category_product');
 
 Route::post('/export-csv','CategoryProduct@export_csv');
 Route::post('/import-csv','CategoryProduct@import_csv');
-
 
 Route::get('/unactive-category-product/{category_product_id}','CategoryProduct@unactive_category_product');
 Route::get('/active-category-product/{category_product_id}','CategoryProduct@active_category_product');

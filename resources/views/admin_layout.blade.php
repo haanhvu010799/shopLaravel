@@ -146,6 +146,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-category-post')}}">Thêm danh mục bài viết</a></li>
 						<li><a href="{{URL::to('/all-category-post')}}">Liệt kê danh mục bài viết</a></li>
+            <li><a href="{{URL::to('/add-post')}}">Tạo bài viết mới</a></li>
+            <li><a href="{{URL::to('/all-post')}}">Danh sách các bài viết</a></li>
 
                     </ul>
                 </li>

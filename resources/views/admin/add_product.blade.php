@@ -52,7 +52,7 @@
                                         @foreach($cate_product as $key => $cate)
                                             <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>
                                         @endforeach
-                                            
+
                                     </select>
                                 </div>
                                  <div class="form-group">
@@ -61,7 +61,7 @@
                                         @foreach($brand_product as $key => $brand)
                                             <option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
                                         @endforeach
-                                            
+
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -69,10 +69,10 @@
                                       <select name="product_status" class="form-control input-sm m-bot15">
                                          <option value="0">Hiển thị</option>
                                             <option value="1">Ẩn</option>
-                                            
+
                                     </select>
                                 </div>
-                               
+
                                 <button type="submit" name="add_product" class="btn btn-info">Thêm sản phẩm</button>
                                 </form>
                             </div>

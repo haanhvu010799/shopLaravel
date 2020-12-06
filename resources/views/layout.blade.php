@@ -169,7 +169,7 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                
+
                                 <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
 
                                 <li class="dropdown"><a href="#">Bài Viết<i class="fa fa-angle-down"></i></a>
