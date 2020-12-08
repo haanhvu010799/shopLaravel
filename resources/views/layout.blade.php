@@ -49,15 +49,15 @@
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-phone"></i> 0932023992</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> webextrasite.com</a></li>
+                                <li><a href="#"><i class="fa fa-phone"></i> 0366765835</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> haanh.xyz</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="www.facebook.com"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{('public/frontend/images/home/logo.png')}}" alt="" /></a>
+                            <!-- <a href="index.html"><img src="{{('public/frontend/images/logo-uit.png')}}" alt="" /></a> -->
                         </div>
                         <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -159,27 +159,29 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
+
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{URL::to('/trang-chu')}}" class="active">Trang chủ</a></li>
-                                <li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
+
+                                    <!-- Danh mục sản phẩm -->
+                                <li class="dropdown"><a>Sản phẩm<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        @foreach($category_post as $key => $danhmuc)
+                                        @foreach($category as $key => $danhmuc)
                                         <li><a href="{{URL::to('/danh-muc/'.$danhmuc->slug_category_product)}}">{{$danhmuc->category_name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
 
-                                <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
                                 <!-- //Danh muc bai viet -->
-                                <li class="dropdown"><a href="#">Bài Viết<i class="fa fa-angle-down"></i></a>
+                                <li class="dropdown"><a>Bài Viết<i class="fa fa-angle-down"></i></a>
                                   <ul role="menu" class="sub-menu">
                                       @foreach($category_post as $key => $danhmucbaiviet)
                                       <li><a href="{{URL::to('/danh-muc-bai-viet/'.$danhmucbaiviet->cate_post_slug)}}">{{$danhmucbaiviet->cate_post_name}}</a></li>
                                       @endforeach
                                   </ul>
                                 </li>
-
+                                <li><a href="{{URL::to('/gio-hang')}}">Giỏ hàng</a></li>
                                 <li><a href="{{URL::to('/lien-he')}}">Liên hệ</a></li>
                             </ul>
                         </div>
@@ -189,7 +191,7 @@
                             {{csrf_field()}}
                         <div class="search_box pull-right">
                             <input type="text" name="keywords_submit" placeholder="Tìm kiếm sản phẩm"/>
-                            <input type="submit" style="margin-top:0;color:#666" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
+                            <input type="submit" style="margin-top:0;color:white" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm">
                         </div>
                         </form>
                     </div>
@@ -289,7 +291,34 @@
     </section>
 
     <footer id="footer"><!--Footer-->
-        <div class="footer-top">
+      <header id="header"><!--header-->
+          <div class="header_top"><!--header_top-->
+              <div class="container">
+                  <div class="row">
+                      <div class="col-sm-6">
+                          <div class="contactinfo">
+                              <ul class="nav nav-pills">
+                                  <li><a href="#"><i class="fa fa-phone"></i> 0366765835</a></li>
+                                  <li><a href="#"><i class="fa fa-envelope"></i> haanh.xyz</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                          <div class="social-icons pull-right">
+                              <ul class="nav navbar-nav">
+                                  <li><a href="www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div><!--/header_top-->
+
+        <!-- <div class="footer-top">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-2">
@@ -442,7 +471,7 @@
                     <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </footer><!--/Footer-->
 

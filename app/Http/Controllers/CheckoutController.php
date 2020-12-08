@@ -15,13 +15,14 @@ use App\Province;
 use App\Wards;
 use App\Feeship;
 use App\Slider;
+use App\CatePost;
 use App\Shipping;
 use App\Order;
 use App\OrderDetails;
 
 class CheckoutController extends Controller
 {
-    
+
     public function confirm_order(Request $request){
          $data = $request->all();
 
@@ -37,7 +38,7 @@ class CheckoutController extends Controller
 
          $checkout_code = substr(md5(microtime()),rand(0,26),5);
 
-  
+
          $order = new Order;
          $order->customer_id = Session::get('customer_id');
          $order->shipping_id = $shipping_id;
@@ -89,12 +90,12 @@ class CheckoutController extends Controller
                         Session::put('fee',$fee->fee_feeship);
                         Session::save();
                     }
-                }else{ 
+                }else{
                     Session::put('fee',25000);
                     Session::save();
                 }
             }
-           
+
         }
     }
     public function select_delivery_home(Request $request){
@@ -129,23 +130,24 @@ class CheckoutController extends Controller
 
         $manager_order_by_id  = view('admin.view_order')->with('order_by_id',$order_by_id);
         return view('admin_layout')->with('admin.view_order', $manager_order_by_id);
-        
+
     }
     public function login_checkout(Request $request){
          //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
+        $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
 
-        //seo 
-        $meta_desc = "Đăng nhập thanh toán"; 
+        //seo
+        $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        //--seo 
+        //--seo
 
     	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
 
-    	return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
+    	return view('pages.checkout.login_checkout')->with('category_post',$category_post)->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider);
     }
     public function add_customer(Request $request){
 
@@ -164,21 +166,22 @@ class CheckoutController extends Controller
 
     }
     public function checkout(Request $request){
-         //seo 
+         //seo
          //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
+        $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
 
-        $meta_desc = "Đăng nhập thanh toán"; 
+        $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        //--seo 
+        //--seo
 
     	$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
         $city = City::orderby('matp','ASC')->get();
 
-    	return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('city',$city)->with('slider',$slider);
+    	return view('pages.checkout.show_checkout')->with('category',$cate_product)->with('category_post',$category_post)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('city',$city)->with('slider',$slider);
     }
     public function save_checkout_customer(Request $request){
     	$data = array();
@@ -191,29 +194,29 @@ class CheckoutController extends Controller
     	$shipping_id = DB::table('tbl_shipping')->insertGetId($data);
 
     	Session::put('shipping_id',$shipping_id);
-    	
+
     	return Redirect::to('/payment');
     }
     public function payment(Request $request){
-        //seo 
-        $meta_desc = "Đăng nhập thanh toán"; 
+        //seo
+        $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        //--seo 
+        //--seo
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+        $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
         return view('pages.checkout.payment')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
     }
     public function order_place(Request $request){
         //insert payment_method
-        //seo 
-        $meta_desc = "Đăng nhập thanh toán"; 
+        //seo
+        $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        //--seo 
+        //--seo
         $data = array();
         $data['payment_method'] = $request->payment_option;
         $data['payment_status'] = 'Đang chờ xử lý';
@@ -246,14 +249,14 @@ class CheckoutController extends Controller
             Cart::destroy();
 
             $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-            $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+            $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
             return view('pages.checkout.handcash')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
 
         }else{
             echo 'Thẻ ghi nợ';
 
         }
-        
+
         //return Redirect::to('/payment');
     }
     public function logout_checkout(){
@@ -264,10 +267,10 @@ class CheckoutController extends Controller
     	$email = $request->email_account;
     	$password = md5($request->password_account);
     	$result = DB::table('tbl_customers')->where('customer_email',$email)->where('customer_password',$password)->first();
-    	
-    	
+
+
     	if($result){
-           
+
     		Session::put('customer_id',$result->customer_id);
     		return Redirect::to('/checkout');
     	}else{
@@ -277,7 +280,7 @@ class CheckoutController extends Controller
 
     }
     public function manage_order(){
-        
+
         $this->AuthLogin();
         $all_order = DB::table('tbl_order')
         ->join('tbl_customers','tbl_order.customer_id','=','tbl_customers.customer_id')

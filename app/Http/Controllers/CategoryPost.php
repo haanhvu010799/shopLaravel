@@ -27,7 +27,7 @@ class CategoryPost extends Controller
     	return view('admin.category_post.add_category');
     }
     public function save_category_post(Request $request){
-        $this->AuthLogin();
+      $this->AuthLogin();
     	$data = $request->all();
       $category_post = new CatePost();
       $category_post -> cate_post_name =  $data['cate_post_name'];
