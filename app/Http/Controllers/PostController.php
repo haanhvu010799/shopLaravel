@@ -125,10 +125,7 @@ class PostController extends Controller
           $this->AuthLogin();
           $post=Post::find($post_id);
           $post_image= $post->post_image;
-          $path= 'public/uploads/post/'.$post_image;
-          if($path){
-            unlink($path);
-          }
+
           $post->delete();
           Session::put('message','Xóa bài viết thành công');
           return redirect()->back();
@@ -152,8 +149,8 @@ class PostController extends Controller
          $cate_id=$cate->cate_post_id;
          $url_canonical = $request->url();
        }
-       $post=Post::with('cate_post')->where('post_status',0)->where('cate_post_id',$cate_id)->paginate(20);
-
+       // $post=Post::with('cate_post')->where('post_status',0)->where('cate_post_id',$cate_id)->paginate(20);
+       $post= Post::orderBy('post_id','ASC')->where('post_status',0)->where('cate_post_id',$cate_id)->paginate(15);
         return view('pages.baiviet.danhmucbaiviet')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('slider',$slider)->with('post',$post)->with('category_post',$category_post);
       }
   }
