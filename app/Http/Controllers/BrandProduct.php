@@ -28,7 +28,6 @@ class BrandProduct extends Controller
     public function all_brand_product(){
         $this->AuthLogin();
     	//$all_brand_product = DB::table('tbl_brand')->get(); //static huong doi tuong
-        // $all_brand_product = Brand::all();
         $all_brand_product = Brand::orderBy('brand_id','DESC')->paginate(10);
     	$manager_brand_product  = view('admin.all_brand_product')->with('all_brand_product',$all_brand_product);
     	return view('admin_layout')->with('admin.all_brand_product', $manager_brand_product);
