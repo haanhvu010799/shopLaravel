@@ -36,6 +36,7 @@ Route::post('/update-category-post/{cate_id}','CategoryPost@update_category_post
 Route::get 	('/delete-category-post/{cate_id}','CategoryPost@delete_category_post');
 //Danh mục bài viết
 Route::get('/danh-muc-bai-viet/{post_slug}','PostController@danh_muc_bai_viet');
+Route::get('/bai-viet/{post_slug}','PostController@bai_viet');
 
 //Bài viết
 Route::get('/add-post','PostController@add_post');
