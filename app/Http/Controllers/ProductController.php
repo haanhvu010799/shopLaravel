@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+
 use App\Slider;
 use App\CatePost;
 use App\Http\Requests;

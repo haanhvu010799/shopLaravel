@@ -2,8 +2,8 @@
 @section('content')
 @foreach($product_details as $key => $value)
 <div class="product-details"><!--product-details-->
-						<div class="col-sm-5">
-							<div class="view-product">
+						 <div class="col-sm-5">
+							{{--<div class="view-product">
 								<img src="{{URL::to('/public/uploads/product/'.$value->product_image)}}" alt="" />
 								<h3>ZOOM</h3>
 							</div>
@@ -24,7 +24,15 @@
 								  <a class="right item-control" href="#similar-product" data-slide="next">
 									<i class="fa fa-angle-right"></i>
 								  </a>
-							</div>
+							</div> --}}
+							<ul id="imageGallery" class="view-product">
+								<li data-thumb="img/thumb/cS-1.jpg" data-src="img/largeImage.jpg">
+								  <img src={{URL::to('/public/uploads/product/'.$value->product_image)}} />
+								</li>
+								<li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">
+								  <img src="img/cS-2.jpg" />
+								</li>
+							  </ul>
 
 						</div>
 						<div class="col-sm-7">
