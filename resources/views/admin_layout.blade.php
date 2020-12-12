@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="brand">
 
     <a target="_blank" href="{{url('/')}}" class="logo">
-        Shop
+        Home
     </a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
@@ -92,18 +92,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <i class="fa fa-dashboard"></i>
                         <span>Tổng quan</span>
                     </a>
-                </li>
-
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Slider</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{URL::to('/manage-slider')}}">Liệt kê slider</a></li>
-                        <li><a href="{{URL::to('/add-slider')}}">Thêm slider</a></li>
-                    </ul>
-                </li>
+                </li>        
 
                 </li>
                  <li class="sub-menu">
@@ -124,7 +113,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         <li><a href="{{URL::to('/insert-coupon')}}">Quản lý mã giảm giá</a></li>
-                        <li><a href="{{URL::to('/list-coupon')}}">Liệt kê mã giảm giá</a></li>
+                        <li><a href="{{URL::to('/list-coupon')}}">Danh sách mã giảm giá</a></li>
                     </ul>
                 </li>
                  <li class="sub-menu">
@@ -146,7 +135,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-category-post')}}">Thêm danh mục bài viết</a></li>
-						<li><a href="{{URL::to('/all-category-post')}}">Liệt kê danh mục bài viết</a></li>
+						<li><a href="{{URL::to('/all-category-post')}}">Danh sách danh mục bài viết</a></li>
             <li><a href="{{URL::to('/add-post')}}">Tạo bài viết mới</a></li>
             <li><a href="{{URL::to('/all-post')}}">Danh sách các bài viết</a></li>
 
@@ -159,21 +148,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-category-product')}}">Thêm danh mục sản phẩm</a></li>
-						<li><a href="{{URL::to('/all-category-product')}}">Liệt kê danh mục sản phẩm</a></li>
+						<li><a href="{{URL::to('/all-category-product')}}">Danh sách danh mục sản phẩm</a></li>
+                        <li><a href="{{URL::to('/add-brand-product')}}">Thêm thương hiệu sản phẩm</a></li>
+                        <li><a href="{{URL::to('/all-brand-product')}}">Danh sách thương hiệu sản phẩm</a></li>
 
                     </ul>
                 </li>
-                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Thương hiệu sản phẩm</span>
-                    </a>
-                    <ul class="sub">
-						<li><a href="{{URL::to('/add-brand-product')}}">Thêm hiệu sản phẩm</a></li>
-						<li><a href="{{URL::to('/all-brand-product')}}">Liệt kê thương hiệu sản phẩm</a></li>
-
-                    </ul>
-                </li>
+                 
                   <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
@@ -181,7 +162,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm</a></li>
-						<li><a href="{{URL::to('/all-product')}}">Liệt kê sản phẩm</a></li>
+						<li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>
 
                     </ul>
                 </li>
@@ -192,11 +173,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                          <li><a href="{{URL::to('/add-users')}}">Thêm user</a></li>
-                        <li><a href="{{URL::to('/users')}}">Liệt kê user</a></li>
+                        <li><a href="{{URL::to('/users')}}">Danh sách user</a></li>
 
                     </ul>
                 </li>
 
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Chỉnh sửa thông tin</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/manage-slider')}}">Thay đổi slider</a></li>
+                        <li><a href="{{URL::to('/add-slider')}}">Tạo slider mới</a></li>
+                        <li><a href="{{URL::to('/information')}}">Chỉnh sửa thông tin liên hệ</a></li>
+
+                    </ul>
+                </li>
             </ul>            </div>
         <!-- sidebar menu end-->
     </div>

@@ -38,6 +38,11 @@ Route::get 	('/delete-category-post/{cate_id}','CategoryPost@delete_category_pos
 Route::get('/danh-muc-bai-viet/{post_slug}','PostController@danh_muc_bai_viet');
 Route::get('/bai-viet/{post_slug}','PostController@bai_viet');
 
+//Liên hệ
+Route::get('/lien-he','ContactController@lien_he');
+Route::get('/information','ContactController@information');
+
+
 //Bài viết
 Route::get('/add-post','PostController@add_post');
 Route::post('/save-post','PostController@save_post');
