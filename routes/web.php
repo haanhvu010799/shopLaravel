@@ -53,8 +53,8 @@ Route::get('/edit-post/{post_id}','PostController@edit_post');
 
 //Gallery
 Route::get('/add-gallery/{product_id}','GalleryController@add_gallery');
-Route::post('/select-gallery/','GalleryController@select_gallery');
-
+Route::post('/select_gallery','GalleryController@select_gallery');
+Route::get('/insert-gallery/{pro_id}',"GalleryController@insert_gallery");
 
 //Category Product
 Route::get('/add-category-product','CategoryProduct@add_category_product');
