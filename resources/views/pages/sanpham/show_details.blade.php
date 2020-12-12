@@ -2,31 +2,17 @@
 @section('content')
 @foreach($product_details as $key => $value)
 <div class="product-details"><!--product-details-->
+	<style>
+		.lSSlideOuter .lSPager.lSGallery img {
+    display: block;
+	height: 100px;
+	width: 200px;
+}
+	</style>
+	
 						 <div class="col-sm-5">
-							{{--<div class="view-product">
-								<img src="{{URL::to('/public/uploads/product/'.$value->product_image)}}" alt="" />
-								<h3>ZOOM</h3>
-							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-
-								  <!-- Gallery mở rộng -->
-								    <div class="carousel-inner">
-
-
-
-
-									</div>
-
-								  <!-- Controls -->
-								  <a class="left item-control" href="#similar-product" data-slide="prev">
-									<i class="fa fa-angle-left"></i>
-								  </a>
-								  <a class="right item-control" href="#similar-product" data-slide="next">
-									<i class="fa fa-angle-right"></i>
-								  </a>
-							</div> --}}
 							<ul id="imageGallery" class="view-product">
-								<li data-thumb="img/thumb/cS-1.jpg" data-src="img/largeImage.jpg">
+								<li data-thumb={{URL::to('/public/uploads/product/'.$value->product_image)}} data-src={{URL::to('/public/uploads/product/'.$value->product_image)}}>
 								  <img src={{URL::to('/public/uploads/product/'.$value->product_image)}} />
 								</li>
 								<li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">

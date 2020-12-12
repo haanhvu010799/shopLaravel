@@ -224,6 +224,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
+
+<!-- script load gallery -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    load_gallery();
+    function load_gallery(){
+      var pro_id = $('.pro_id'.val());
+      var token= $('input[name="token"]').val();
+      $.ajax({
+        url:"{{url('/select-gallery')}}";
+        method:"POST", data:{pro_id : pro_id,token},
+        success:function(data){
+          $('#gallery_load').html(data);
+        }
+      });
+      alert();
+    }
+  });
+
+</script>
+
 <script type="text/javascript">
 
     function ChangeToSlug()

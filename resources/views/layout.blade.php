@@ -11,13 +11,7 @@
     <meta name="author" content="">
     <link  rel="icon" type="image/x-icon" href="" />
 
-    {{--   <meta property="og:image" content="{{$image_og}}" />
-      <meta property="og:site_name" content="" />
-      <meta property="og:description" content="{{$meta_desc}}" />
-      <meta property="og:title" content="{{$meta_title}}" />
-      <meta property="og:url" content="{{$url_canonical}}" />
-      <meta property="og:type" content="website" /> --}}
-    <!--//-------Seo--------->
+    
     <title>{{$meta_title}}</title>
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">

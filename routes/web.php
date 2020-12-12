@@ -51,6 +51,9 @@ Route::get('/active-post/{post_id}','PostController@active_post');
 
 Route::get('/edit-post/{post_id}','PostController@edit_post');
 
+//Gallery
+Route::get('/add-gallery/{product_id}','GalleryController@add_gallery');
+Route::post('/select-gallery/','GalleryController@select_gallery');
 
 
 //Category Product
