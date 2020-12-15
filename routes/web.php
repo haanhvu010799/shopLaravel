@@ -57,9 +57,9 @@ Route::get('/active-post/{post_id}','PostController@active_post');
 Route::get('/edit-post/{post_id}','PostController@edit_post');
 
 //Gallery
-Route::get('/add-gallery/{product_id}','GalleryController@add_gallery');
-Route::post('/select_gallery','GalleryController@select_gallery');
-Route::get('/insert-gallery/{pro_id}',"GalleryController@insert_gallery");
+Route::get('add-gallery/{product_id}','GalleryController@add_gallery');
+Route::post('select-gallery','GalleryController@select_gallery');
+Route::post('insert-gallery/{pro_id}','GalleryController@insert_gallery');
 
 //Category Product
 Route::get('/add-category-product','CategoryProduct@add_category_product');
@@ -160,6 +160,9 @@ Route::post('/calculate-fee','CheckoutController@calculate_fee');
 Route::post('/select-delivery-home','CheckoutController@select_delivery_home');
 Route::post('/confirm-order','CheckoutController@confirm_order');
 
+
+
+
 //Order
 Route::get('/delete-order/{order_code}','OrderController@order_code');
 Route::get('/print-order/{checkout_code}','OrderController@print_order');
@@ -175,7 +178,8 @@ Route::post('/select-delivery','DeliveryController@select_delivery');
 Route::post('/insert-delivery','DeliveryController@insert_delivery');
 Route::post('/select-feeship','DeliveryController@select_feeship');
 Route::post('/update-delivery','DeliveryController@update_delivery');
-
+//Xóa mục ship
+Route::get('/del-delivery','DeliveryController@delete_delivery');
 //Banner
 Route::get('/manage-slider','SliderController@manage_slider');
 Route::get('/add-slider','SliderController@add_slider');

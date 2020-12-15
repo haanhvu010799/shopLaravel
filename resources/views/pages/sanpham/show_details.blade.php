@@ -6,19 +6,21 @@
 		.lSSlideOuter .lSPager.lSGallery img {
     display: block;
 	height: 100px;
-	width: 200px;
+	width: 300px;
 }
 	</style>
 	
 						 <div class="col-sm-5">
-							<ul id="imageGallery" class="view-product">
+							<ul id="imageGallery"  class="view-product">
 								<li data-thumb={{URL::to('/public/uploads/product/'.$value->product_image)}} data-src={{URL::to('/public/uploads/product/'.$value->product_image)}}>
 								  <img src={{URL::to('/public/uploads/product/'.$value->product_image)}} />
 								</li>
-								<li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">
-								  <img src="img/cS-2.jpg" />
+								@foreach($gallery as $key => $gal)
+								<li data-thumb={{URL::to('/public/uploads/gallery/'.$gal->gallery_image)}} data-src={{URL::to('/public/uploads/gallery/'.$gal->gallery_image)}}>
+								  <img src={{URL::to('/public/uploads/gallery/'.$gal->gallery_image)}} />
 								</li>
-							  </ul>
+								@endforeach
+							 </ul>
 
 						</div>
 						<div class="col-sm-7">

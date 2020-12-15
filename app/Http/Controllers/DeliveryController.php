@@ -17,6 +17,22 @@ class DeliveryController extends Controller
 		$fee_ship->fee_feeship = $fee_value;
 		$fee_ship->save();
 	}
+	public function insert_delivery(Request $request){
+		$data = $request->all();
+		$fee_ship = new Feeship();
+		$fee_ship->fee_matp = $data['city'];
+		$fee_ship->fee_maqh = $data['province'];
+		$fee_ship->fee_xaid = $data['wards'];
+		$fee_ship->fee_feeship = $data['fee_ship'];
+		$fee_ship->save();
+	}
+	public function delete_delivery (Request $request)
+	{
+		
+        DB::table('tbl_feeship')->where('fee_id',$fee_id)->delete();
+        Session::put('message','Xóa  thành công');
+        return redirect()->back();
+	}
 	public function select_feeship(){
 		$feeship = Feeship::orderby('fee_id','DESC')->get();
 		$output = '';
@@ -28,6 +44,7 @@ class DeliveryController extends Controller
 						<th>Tên quận huyện</th> 
 						<th>Tên xã phường</th>
 						<th>Phí ship</th>
+						<td>Xóa</td>
 					</tr>  
 				</thread>
 				<tbody>
@@ -41,6 +58,9 @@ class DeliveryController extends Controller
 						<td>'.$fee->province->name_quanhuyen.'</td>
 						<td>'.$fee->wards->name_xaphuong.'</td>
 						<td contenteditable data-feeship_id="'.$fee->fee_id.'" class="fee_feeship_edit">'.number_format($fee->fee_feeship,0,',','.').'</td>
+						<td>
+							<button contenteditable type="button" data-feeship_id="'.$fee->fee_id.'"  class="btn btn-danger delete-delivery">Xóa</button>
+						</td>
 					</tr>
 					';
 				}
@@ -54,15 +74,8 @@ class DeliveryController extends Controller
 
 		
 	}
-	public function insert_delivery(Request $request){
-		$data = $request->all();
-		$fee_ship = new Feeship();
-		$fee_ship->fee_matp = $data['city'];
-		$fee_ship->fee_maqh = $data['province'];
-		$fee_ship->fee_xaid = $data['wards'];
-		$fee_ship->fee_feeship = $data['fee_ship'];
-		$fee_ship->save();
-	}
+	
+	
     public function delivery(Request $request){
 
     	$city = City::orderby('matp','ASC')->get();

@@ -219,7 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
 
-<!-- script load gallery -->
+
 
 <script type="text/javascript">
 
@@ -336,6 +336,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     });
 </script>
+<!-- script load gallery -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_gallery();
+
+        function load_gallery(){
+            var pro_id = $('.pro_id').val();
+            
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url : '{{url('/select-gallery')}}',
+                method: "POST",
+                data:{pro_id: pro_id,_token: _token},
+                success:function(data){
+                    $('#gallery_load').html(data);
+                    zalert(pro_id);
+                }
+            });
+        }
+        $('#file').change(function(){   
+            var error='';
+            var files=$('#file')[0].files;
+            if(files.length>10){
+                error+='<p>Vui lòng chọn tối đa 10 ảnh</p>'
+            }else if(files.size>2000000){
+                error+='<p>Vượt quá kích thước ảnh cho phép</p>'
+            }
+            if(error==''){
+
+            }else {
+                $('#file').val('');
+                $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+                return false;
+            }
+        
+
+        });
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -391,6 +431,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         });
+
         $('.choose').on('change',function(){
             var action = $(this).attr('id');
             var ma_id = $(this).val();
@@ -414,7 +455,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         });
-    })
+        // $(document).on('click','.delete-delivery',function(){
+        //     var feeship_id= $(this).data('feeship_id');
+        //     var _token = $('input[name="_token"]').val();
+        //     $.ajax({
+        //         url : '{{url('/del-delivery')}}',
+        //         method: "POST",
+        //         data:{feeship_id:feeship_id, _token:_token},
+        //         success:function(data){
+        //             fetch_delivery();
+        //         }
+        //     });
+
+        // });
+    });
 
 
 </script>
