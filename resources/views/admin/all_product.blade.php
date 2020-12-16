@@ -44,7 +44,7 @@
             </th>
             <th>ID </th>
             <th>Tên sản phẩm</th>
-            <th>Thư viện hình ảnh</th>
+            <th>Hình ảnh miêu tả</th>
             <th>Số lượng</th>
             <th>Slug</th>
             <th>Giá</th>

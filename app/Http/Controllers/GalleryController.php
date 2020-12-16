@@ -14,7 +14,7 @@ session_start();
 
 class GalleryController extends Controller
 {
-	public function AuthLogin(){
+    public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
             return Redirect::to('dashboard');
@@ -26,8 +26,8 @@ class GalleryController extends Controller
     public function add_gallery($product_id){
         $p= new Product();
         $p->product_id=$product_id;
-    	$pro_id= $product_id;
-    	return view('admin.gallery.add_gallery')->with(compact('pro_id'));
+        $pro_id= $product_id;
+        return view('admin.gallery.add_gallery')->with(compact('pro_id'));
 
     }
     public function insert_gallery(Request $request, $pro_id){
@@ -49,9 +49,8 @@ class GalleryController extends Controller
         return redirect()->back();
     }
     public function select_gallery(Request $request){
-        $gallery = new Gallery();
-        $product_id=$gallery->product_id;
-        $gallery= Gallery::orderby('gallery_id','DESC')->get();
+        $product_id= $request->pro_id;
+        $gallery = Gallery::where('product_id',$product_id)->get(); 
         $gallery_count= $gallery->count();
         $output = '
             <table class="table table-hover">
@@ -81,7 +80,6 @@ class GalleryController extends Controller
                         <td>
                             <button data-gal_id="'.$gal->galery_id.'" class="btn btn-danger delete-gallery">Xóa</button>
                         </td>
-
                     </tr>
                     ';
                 }}
