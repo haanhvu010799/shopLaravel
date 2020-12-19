@@ -58,8 +58,11 @@ Route::get('/edit-post/{post_id}','PostController@edit_post');
 
 //Gallery
 Route::get('/add-gallery/{product_id}','GalleryController@add_gallery');
-Route::post('/select-gallery','GalleryController@select_gallery');
+Route::post('select-gallery','GalleryController@select_gallery');
 Route::post('/insert-gallery/{pro_id}','GalleryController@insert_gallery');
+Route::post('xoa-gallery','GalleryController@xoa_gallery');
+Route::post('update-gallery-name','GalleryController@update_gallery_name');
+
 
 //Category Product
 Route::get('/add-category-product','CategoryProduct@add_category_product');

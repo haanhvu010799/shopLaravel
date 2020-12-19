@@ -337,7 +337,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>
 <!-- script load gallery -->
-<script type="text/javascript">
+ <script type="text/javascript">
     $(document).ready(function(){
         load_gallery();
 
@@ -351,10 +351,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 data:{pro_id: pro_id,_token: _token},
                 success:function(data){
                     $('#gallery_load').html(data);
-                    zalert(pro_id);
+                    
                 }
             });
         }
+
         $('#file').change(function(){   
             var error='';
             var files=$('#file')[0].files;
@@ -373,6 +374,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         
 
         });
+
+        $(document).on('blur','.edit_gal_name',function(){
+            var gal_id=$(this).data('gal_id');
+            var gal_text= $(this).text();
+            var _token = $('input[name="_token"]').val();
+            
+            $.ajax({
+                url : '{{url('/update-gallery-name')}}',
+                method: "POST",
+                data:{gal_id: gal_id, gal_text: gal_text, _token: _token},
+                success:function(data){
+                   load_gallery();
+                   $('#error_gallery').html('<span class="text-danger">Cập nhật hình ảnh thành công </span>');
+                }
+            });
+        });
+         $(document).on('click','.delete_gallery',function(){
+            var gal_id=$(this).data('gal_id');
+            var _token = $('input[name="_token"]').val();
+            
+            $.ajax({
+                url : '{{url('/xoa-gallery')}}',
+                method: "POST",
+                data:{gal_id: gal_id, _token: _token},
+                success:function(data){
+                   load_gallery();
+                   $('#error_gallery').html('<span class="text-danger">Xóa hình ảnh thành công </span>');
+                }
+            });
+        });
+            
+       
+       
     });
 </script>
 
@@ -388,6 +422,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 method: 'POST',
                 data:{_token:_token},
                 success:function(data){
+
                    $('#load_delivery').html(data);
                 }
             });

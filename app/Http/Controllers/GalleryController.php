@@ -30,6 +30,7 @@ class GalleryController extends Controller
         return view('admin.gallery.add_gallery')->with(compact('pro_id'));
 
     }
+
     public function insert_gallery(Request $request, $pro_id){
         $get_image = $request->file('file');
         if($get_image){
@@ -48,11 +49,14 @@ class GalleryController extends Controller
         Session::put('message','Thêm ảnh thành công');
         return redirect()->back();
     }
+   
     public function select_gallery(Request $request){
         $product_id= $request->pro_id;
         $gallery = Gallery::where('product_id',$product_id)->get(); 
         $gallery_count= $gallery->count();
         $output = '
+        <form>
+                '.csrf_field() .'
             <table class="table table-hover">
                 <thread> 
                     <tr>
@@ -67,20 +71,25 @@ class GalleryController extends Controller
             if($gallery_count>0)
             {
                 $i=0;
+
                 foreach($gallery as $key => $gal)
                 {
                 $i++;
                 $output.='
+
                     <tr>
                         <td>'.$i.'</td>
-                        <td>'.$gal->gallery_name.'</td>
+                        <td contenteditable class="edit_gal_name" data-gal_id="'.$gal->gallery_id.'" >'.$gal->gallery_name.'</td>
                         <td>
                         <img src="'.url('public/uploads/gallery/'.$gal->gallery_image).'" height="100" width="100">
+
+
                         </td>
                         <td>
-                            <button data-gal_id="'.$gal->galery_id.'" class="btn btn-danger delete-gallery">Xóa</button>
+                            <button type="button" data-gal_id="'.$gal->gallery_id.'"  class="btn btn-danger delete_gallery">Xóa</button>
                         </td>
                     </tr>
+
                     ';
                 }}
             // else{
@@ -91,8 +100,28 @@ class GalleryController extends Controller
             //         ';
                 
             // }
-            
-                echo $output;
+            $output.='
+                </tbody>
+                </table>
+                </form>
+            ';
+            echo $output;
 
     }
+     public function update_gallery_name(Request $request){
+        $gal_id= $request->gal_id;
+        $gal_text= $request->gal_text;
+        $gallery= Gallery::find($gal_id);
+        $gallery->gallery_name=$gal_text;
+        $gallery->save();
+
+        
+    }
+    public function xoa_gallery(Request $request){
+        $gal_id= $request->gal_id;
+        $gallery= Gallery::find($gal_id);
+        unlink('public/uploads/gallery/'.$gallery->gallery_image);
+        $gallery->delete();
+    }
+    
 }
