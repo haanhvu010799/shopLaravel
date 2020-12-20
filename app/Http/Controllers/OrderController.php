@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Session;
 use App\Feeship;
 use App\Shipping;
 use App\Order;
@@ -12,13 +12,14 @@ use App\Customer;
 use App\Coupon;
 use App\Product;
 use PDF;
+session_start();
 
 class OrderController extends Controller
 {
 	public function order_code(Request $request ,$order_code){
 		$order = Order::where('order_code',$order_code)->first();
 		$order->delete();
-		 Session::put('message','Xóa đơn hàng thành công');
+		Session::put('message','Xóa đơn hàng thành công');
         return redirect()->back();
 
 	}
