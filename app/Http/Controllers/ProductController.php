@@ -41,14 +41,14 @@ class ProductController extends Controller
     	return view('admin_layout')->with('admin.all_product', $manager_product);
 
     }
-    public function save_product(Request $request){
+     public function save_product(Request $request){
          $this->AuthLogin();
-    	$data = array();
-    	$data['product_name'] = $request->product_name;
+        $data = array();
+        $data['product_name'] = $request->product_name;
         $data['product_quantity'] = $request->product_quantity;
         $data['product_slug'] = $request->product_slug;
-    	$data['product_price'] = $request->product_price;
-    	$data['product_desc'] = $request->product_desc;
+        $data['product_price'] = $request->product_price;
+        $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;
         $data['category_id'] = $request->product_cate;
         $data['brand_id'] = $request->product_brand;
@@ -67,9 +67,9 @@ class ProductController extends Controller
             return Redirect::to('add-product');
         }
         $data['product_image'] = '';
-    	DB::table('tbl_product')->insert($data);
-    	Session::put('message','Thêm sản phẩm thành công');
-    	return Redirect::to('all-product');
+        DB::table('tbl_product')->insert($data);
+        Session::put('message','Thêm sản phẩm thành công');
+        return Redirect::to('all-product');
     }
     public function unactive_product($product_id){
          $this->AuthLogin();
@@ -135,7 +135,7 @@ class ProductController extends Controller
          //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
         $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
-        $gallery = Gallery::orderby('gallery_id','DESC')->get();
+        
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
 
@@ -146,6 +146,7 @@ class ProductController extends Controller
 
         foreach($details_product as $key => $value){
             $category_id = $value->category_id;
+            $product_id= $value->product_id;
                 //seo
                 $meta_desc = $value->product_desc;
                 $meta_keywords = $value->product_slug;
@@ -154,6 +155,7 @@ class ProductController extends Controller
                 //--seo
             }
 
+        $gallery = Gallery::where('product_id',$product_id)->get();     
         $related_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')

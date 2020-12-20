@@ -553,7 +553,7 @@
             gallery:true,
             item:1,
             loop:true,
-            thumbItem:9,
+            thumbItem:4,
             slideMargin:0,
             enableDrag: false,
             currentPagerPosition:'left',
