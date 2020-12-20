@@ -41,8 +41,25 @@ class ProductController extends Controller
     	return view('admin_layout')->with('admin.all_product', $manager_product);
 
     }
-     public function save_product(Request $request){
-         $this->AuthLogin();
+    public function quickview(Request $request){
+        $product_id=$request->$product_id;
+        $product= Product::find($product_id);
+        $gallery = Gallery::where('product_id',$product_id)->get();     
+        $output['product_gallery']='';
+        foreach ($gallery as $key => $gal) 
+        {
+            $output['product_gallery'].='<p><img width="100%" src="public/uploads/gallery/'.$gal->gallery_image.'"> </p>';
+        }
+        $output['product_name']= $product->product_name;
+        $output['product_id']= $product->product_id;
+        $output['product_desc']= $product->product_desc;    
+        $output['product_content']= $product->product_content;
+        $output['product_price']= number_format($product->product_price,0,',','.').'VND';
+        $output['product_image']= '<p><img width="100%" src="public/uploads/product/'.$product->product_image.'"> </p>';
+        echo json_encode($output);
+    }
+    public function save_product(Request $request){
+        $this->AuthLogin();
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_quantity'] = $request->product_quantity;

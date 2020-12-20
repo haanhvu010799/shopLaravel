@@ -31,7 +31,7 @@
                                             <input type="button" value="Thêm giỏ hàng" class="btn btn-default add-to-cart" data-id_product="{{$product->product_id}}" name="add-to-cart">
 
                                             <input type="button" data-toggle="modal" 
-                                             data-target="#xemnhanh" value="Xem nhanh" class="btn btn-default add-to-cart xemnhanh" data-id_product="{{$product->product_id}}" name="add-to-cart">
+                                             data-target="#xemnhanh" value="Xem nhanh" class="btn btn-default xemnhanh" data-id_product="{{$product->product_id}}" name="add-to-cart">
                                             </form>
 
                                         </div>
@@ -57,14 +57,24 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title product_quickview_title" id="">
+                  <span id="product_quickview_title"></span>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <div class="row">
+                  <div class="col-md-5">
+                    <span id="product_quickview_image"></span>
+                    <span id="product_quickview_gallery"></span>
+                  </div>
+                  <div class="col-md-7">
+                   
+                </div>
               </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>

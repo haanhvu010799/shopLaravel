@@ -491,7 +491,32 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0&appId=2339123679735877&autoLogAppEvents=1"></script>
+    
+    <script type="text/javascript">
+        $('.xemnhanh').click(function(){
+            var product_id = $(this).data('id_product');
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/quickview')}}',
+                method: 'POST',
+                dataType: "JSON",
+                data:{product_id:product_id, _token: _token},
+                success:function(data){
+                    $('#product_quickview_title').html(data.product_name);
+                    $('#product_quickview_id').html(data.product_id);
+                    $('#product_quickview_price').html(data.product_price);
+                    $('#product_quickview_image').html(data.product_image);
+                    $('#product_quickview_gallery').html(data.product_gallery);
+                    $('#product_quickview_desc').html(data.product_desc);
+                    $('#product_quickview_content').html(data.product_content);
 
+
+                }
+            });
+
+
+        });
+    </script>
 
     <script type="text/javascript">
 
@@ -525,8 +550,8 @@
                             url: '{{url('/confirm-order')}}',
                             method: 'POST',
                             data:{shipping_email:shipping_email,shipping_name:shipping_name,shipping_address:shipping_address,shipping_phone:shipping_phone,shipping_notes:shipping_notes,_token:_token,order_fee:order_fee,order_coupon:order_coupon,shipping_method:shipping_method},
-                            success:function(){
-                               swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
+                                success:function(){
+                                    swal("Đơn hàng", "Đơn hàng của bạn đã được gửi thành công", "success");
                             }
                         });
 

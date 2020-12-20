@@ -942,7 +942,22 @@ h2.title {
   color: #fff;
 }
 
+.xemnhanh {
+  background:white;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  margin-bottom: 25px;
+}
 
+.xemnhanh:hover {
+  background: #D7423C;
+  border: 0 none;
+  border-radius: 16px;
+  color: #FFFFFF;
+}
 
 .add-to-cart {
   background:white;
@@ -957,7 +972,7 @@ h2.title {
 .add-to-cart:hover {
   background: #D7423C;
   border: 0 none;
-  border-radius: 0;
+  border-radius: 16px;
   color: #FFFFFF;
 }
 

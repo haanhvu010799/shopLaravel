@@ -104,6 +104,7 @@ Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_bran
 
 
 //Product
+Route::post('/quickview','ProductController@quickview');
 // Route::group(['middleware' => 'roles', 'roles'=>['admin','author']], function () {
 	Route::get('/add-product','ProductController@add_product');
 	Route::get('/edit-product/{product_id}','ProductController@edit_product');
