@@ -44,15 +44,15 @@ class ProductController extends Controller
     public function quickview(Request $request){
         $product_id=$request->$product_id;
         $product= Product::find($product_id);
-        $gallery = Gallery::where('product_id',$product_id)->get();     
+        $gallery = Gallery::where('product_id',$product_id)->get();
         $output['product_gallery']='';
-        foreach ($gallery as $key => $gal) 
+        foreach ($gallery as $key => $gal)
         {
             $output['product_gallery'].='<p><img width="100%" src="public/uploads/gallery/'.$gal->gallery_image.'"> </p>';
         }
         $output['product_name']= $product->product_name;
         $output['product_id']= $product->product_id;
-        $output['product_desc']= $product->product_desc;    
+        $output['product_desc']= $product->product_desc;
         $output['product_content']= $product->product_content;
         $output['product_price']= number_format($product->product_price,0,',','.').'VND';
         $output['product_image']= '<p><img width="100%" src="public/uploads/product/'.$product->product_image.'"> </p>';
@@ -152,7 +152,7 @@ class ProductController extends Controller
          //slide
         $slider = Slider::orderBy('slider_id','DESC')->where('slider_status','1')->take(4)->get();
         $category_post = CatePost::orderBy('cate_post_id','DESC')->get();
-        
+
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
 
@@ -172,7 +172,7 @@ class ProductController extends Controller
                 //--seo
             }
 
-        $gallery = Gallery::where('product_id',$product_id)->get();     
+        $gallery = Gallery::where('product_id',$product_id)->get();
         $related_product = DB::table('tbl_product')
         ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')

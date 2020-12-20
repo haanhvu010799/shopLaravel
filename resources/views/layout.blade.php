@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link  rel="icon" type="image/x-icon" href="" />
 
-    
+
     <title>{{$meta_title}}</title>
     <link href="{{asset('public/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -491,7 +491,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0&appId=2339123679735877&autoLogAppEvents=1"></script>
-    
+
     <script type="text/javascript">
         $('.xemnhanh').click(function(){
             var product_id = $(this).data('id_product');
@@ -509,12 +509,8 @@
                     $('#product_quickview_gallery').html(data.product_gallery);
                     $('#product_quickview_desc').html(data.product_desc);
                     $('#product_quickview_content').html(data.product_content);
-
-
                 }
             });
-
-
         });
     </script>
 
@@ -586,8 +582,8 @@
                 el.lightGallery({
                     selector: '#imageGallery .lslide'
                 });
-        }   
-    });  
+        }
+    });
   });
     </script>
 
