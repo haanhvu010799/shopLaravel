@@ -7,6 +7,7 @@ use DB;
 use Session;
 use App\Social;
 use Socialite;
+use App\Statistic;
 use App\Login;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -27,6 +28,21 @@ class AdminController extends Controller
             Session::put('admin_name',$account_name->admin_name);
             Session::put('admin_id',$account_name->admin_id);
             return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');  
+    }
+    public function filter_by_date(Request $request){
+        $data= $request->all;
+        $from_date=$data['from_date'];
+        $to_date=$data['to_date'];
+        $get=Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
+        foreach ($get as $key => $val) {
+            $chart_data[]= arrar(
+                'period'=> $val->order_date;
+                'order'=> $val->total_order;
+                'sales'=> $val->sales;
+                'profit'=> $val->profit;
+                'quantity'=> $val->order_date;
+            );
+        }
     }
     public function findOrCreateUser($users, $provider){
             $authUser = Social::where('provider_user_id', $users->id)->first();
