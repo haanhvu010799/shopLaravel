@@ -35,14 +35,17 @@ class AdminController extends Controller
         $to_date=$data['to_date'];
         $get=Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
         foreach ($get as $key => $val) {
-            $chart_data[]= arrar(
-                'period'=> $val->order_date;
-                'order'=> $val->total_order;
-                'sales'=> $val->sales;
-                'profit'=> $val->profit;
-                'quantity'=> $val->order_date;
+            $chart_data[] = array(
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sales' => $val->sales,
+                'profit' => $val->profit,
+                'quantity' => $val->order_date
+
+    
             );
         }
+        echo $data= json_encode($chart_data);
     }
     public function findOrCreateUser($users, $provider){
             $authUser = Social::where('provider_user_id', $users->id)->first();
