@@ -22,6 +22,7 @@ Route::get('/thuong-hieu/{brand_slug}','BrandProduct@show_brand_home');
 Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
 
 //Backend
+Route::pos('/filter-by-date','AdminController@filter_by_date');
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::get('/logout','AdminController@logout');
@@ -104,10 +105,10 @@ Route::post('/update-brand-product/{brand_product_id}','BrandProduct@update_bran
 
 
 //Product
-Route::post('/quickview','ProductController@quickview');
+Route::post('/quickview/{product_id}','ProductController@quickview');
 // Route::group(['middleware' => 'roles', 'roles'=>['admin','author']], function () {
-	Route::get('/add-product','ProductController@add_product');
-	Route::get('/edit-product/{product_id}','ProductController@edit_product');
+Route::get('/add-product','ProductController@add_product');
+Route::get('/edit-product/{product_id}','ProductController@edit_product');
 // });
 Route::get('users',
 		[

@@ -9,6 +9,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap.min.css')}}" >
 
+<!-- Datapicker -->
+<link rel="stylesheet" href="{{asset('public/backend/css/jquery-ui.css')}}">
+
+
+
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
 <link href="{{asset('public/backend/css/style.css')}}" rel='stylesheet' type='text/css' />
@@ -92,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <i class="fa fa-dashboard"></i>
                         <span>Tổng quan</span>
                     </a>
-                </li>        
+                </li>
 
                 </li>
                  <li class="sub-menu">
@@ -154,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     </ul>
                 </li>
-                 
+
                   <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
@@ -186,7 +191,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
                         <li><a href="{{URL::to('/manage-slider')}}">Thay đổi slider</a></li>
                         <li><a href="{{URL::to('/add-slider')}}">Tạo slider mới</a></li>
-                        <li><a href="{{URL::to('/information')}}">Chỉnh sửa thông tin liên hệ</a></li>
+                        <!-- <li><a href="{{URL::to('/information')}}">Chỉnh sửa thông tin liên hệ</a></li> -->
 
                     </ul>
                 </li>
@@ -218,8 +223,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('public/backend/js/jquery-ui.js')}}"></script>
 
+<script type="text/javascript">
+    $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        prevText:"Tháng trước",
+        nextText:"Tháng sau",
+        dateFormat:"dd-mm-yy",
+        dayNamesMin: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6", "Thứ 7","Chủ nhật"],
+        duration:"slow"
+        
+    })
+    $("#datepicker2").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        prevText:"Tháng trước",
+        nextText:"Tháng sau",
+        dateFormat:"dd-mm-yy",
+        dayNamesMin: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6", "Thứ 7","Chủ nhật"],
+        duration:"slow"
+    })
+    $('#btn-dashboard-filter').click(function(){
+        var _token = $('input[name="_token"]').val();
+        var from_date =$('#datepicker').val();
+        var to_date=$('#datepicker2').val();
 
+        $.ajax({
+            url:"{{url('/filter-by-date')}}",
+            method: "POST",
+            dataType:"JSON",
+            data:{from_date:from_date, to_date:to_date,_token:_token},
+            success:function(data)
+            {
+                chart.setData(data);
+            }
+
+        });
+    });
+</script>
 
 <script type="text/javascript">
 
@@ -343,7 +386,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         function load_gallery(){
             var pro_id = $('.pro_id').val();
-            
+
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url : '{{url('/select-gallery')}}',
@@ -351,12 +394,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 data:{pro_id: pro_id,_token: _token},
                 success:function(data){
                     $('#gallery_load').html(data);
-                    
+
                 }
             });
         }
 
-        $('#file').change(function(){   
+        $('#file').change(function(){
             var error='';
             var files=$('#file')[0].files;
             if(files.length>10){
@@ -371,7 +414,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
                 return false;
             }
-        
+
 
         });
 
@@ -379,7 +422,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var gal_id=$(this).data('gal_id');
             var gal_text= $(this).text();
             var _token = $('input[name="_token"]').val();
-            
+
             $.ajax({
                 url : '{{url('/update-gallery-name')}}',
                 method: "POST",
@@ -393,7 +436,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
          $(document).on('click','.delete_gallery',function(){
             var gal_id=$(this).data('gal_id');
             var _token = $('input[name="_token"]').val();
-            
+
             $.ajax({
                 url : '{{url('/xoa-gallery')}}',
                 method: "POST",
@@ -404,9 +447,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         });
-            
-       
-       
+
+
+
     });
 </script>
 
