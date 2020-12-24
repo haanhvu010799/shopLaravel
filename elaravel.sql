@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2020 at 05:12 AM
+-- Generation Time: Dec 24, 2020 at 03:07 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -46,7 +46,10 @@ INSERT INTO `admin_roles` (`id_admin_roles`, `admin_admin_id`, `roles_id_roles`)
 (50, 3, 1),
 (51, 1, 2),
 (52, 1, 3),
-(53, 1, 1);
+(53, 1, 1),
+(55, 4, 2),
+(56, 4, 3),
+(57, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -81,7 +84,8 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Hà Anh', '0929083264', NULL, NULL);
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Vũ Hà Anh', '0929083264', NULL, NULL),
+(4, 'admin@gmail.com', '202cb962ac59075b964b07152d234b70', 'Admin', '123', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -134,7 +138,8 @@ CREATE TABLE `tbl_category_post` (
 --
 
 INSERT INTO `tbl_category_post` (`cate_post_id`, `cate_post_name`, `cate_post_status`, `cate_post_slug`, `cate_post_desc`) VALUES
-(1, 'Tin công nghệ', 0, 'tin-cong-nghe', 'Test');
+(3, 'Tin  giải trí', 0, 'tin-giai-tri', '1'),
+(5, 'Tin thời sự', 0, 'tin-thoi-su', 'thời sự hàng ngày');
 
 -- --------------------------------------------------------
 
@@ -147,7 +152,7 @@ CREATE TABLE `tbl_category_product` (
   `meta_keywords` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug_category_product` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_desc` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -217,7 +222,9 @@ INSERT INTO `tbl_customers` (`customer_id`, `customer_name`, `customer_email`, `
 (4, 'Hiếu Tấn', 'tanhieu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
 (5, 'Hoàng thị yến vi', 'yenvi@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
 (6, 'Trương Ngọc Tấn Hiếu', 'hieu123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
-(7, 'Anh hieu dep giai 123', 'depgiai123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL);
+(7, 'Anh hieu dep giai 123', 'depgiai123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0932023992', NULL, NULL),
+(8, 'Vũ Hà Anh', 'test01@gmail.com', '202cb962ac59075b964b07152d234b70', '0366765835', NULL, NULL),
+(9, 'Vũ Hà Anh', 'test01@gmail.com', '202cb962ac59075b964b07152d234b70', '0366765835', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -244,7 +251,53 @@ INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_fe
 (4, 2, 26, 712, '60000'),
 (5, 79, 760, 26734, '80000'),
 (6, 8, 74, 2374, '15000'),
-(7, 77, 748, 26548, '60000');
+(7, 77, 748, 26548, '60000'),
+(8, 4, 47, 1501, '1234'),
+(9, 4, 47, 1501, '123'),
+(10, 30, 294, 10831, '123'),
+(11, 11, 98, 3238, '1'),
+(12, 8, 72, 2254, '12'),
+(14, 25, 235, 8359, '133');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_gallery`
+--
+
+CREATE TABLE `tbl_gallery` (
+  `gallery_id` int(11) NOT NULL,
+  `gallery_name` varchar(255) NOT NULL,
+  `gallery_image` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_gallery`
+--
+
+INSERT INTO `tbl_gallery` (`gallery_id`, `gallery_name`, `gallery_image`, `product_id`) VALUES
+(28, '116753503_1133064233746135_4192891304284144680_n63.jpg', '116753503_1133064233746135_4192891304284144680_n63.jpg', 27),
+(30, 'avatar69.jpg', 'avatar69.jpg', 27),
+(31, 'rog pugio40.jpg', 'rog pugio40.jpg', 20),
+(32, 'baner-safe67.jpg', 'baner-safe67.jpg', 20),
+(34, 'Screenshot (39)62.png', 'Screenshot (39)62.png', 27),
+(36, 'Screenshot (35)48.png', 'Screenshot (35)48.png', 28),
+(39, 'chuột1', 'download49.jpg', 30);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_information`
+--
+
+CREATE TABLE `tbl_information` (
+  `info_id` int(11) NOT NULL,
+  `info_contact` mediumtext NOT NULL,
+  `info_map` text NOT NULL,
+  `info_image` varchar(255) NOT NULL,
+  `info_fanpage` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -267,7 +320,8 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `order_status`, `order_code`, `created_at`, `updated_at`) VALUES
-(18, 4, 19, 1, '1778b', '2020-08-08 08:54:34', NULL);
+(21, 8, 22, 2, 'f02ea', '2020-12-20 13:15:11', NULL),
+(22, 8, 23, 2, '030aa', '2020-12-24 13:57:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -293,14 +347,11 @@ CREATE TABLE `tbl_order_details` (
 --
 
 INSERT INTO `tbl_order_details` (`order_details_id`, `order_code`, `product_id`, `product_name`, `product_price`, `product_sales_quantity`, `product_coupon`, `product_feeship`, `created_at`, `updated_at`) VALUES
-(47, '3fc48', 6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '431000', 5, 'COVID99', '50000', NULL, NULL),
-(48, '3fc48', 7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '230000', 1, 'COVID99', '50000', NULL, NULL),
-(49, '3fc48', 8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '135000', 1, 'COVID99', '50000', NULL, NULL),
-(50, '1778b', 24, 'Sách ngôn tình hồ ly tinh', '500000', 1, 'HDH375Y', '60000', NULL, NULL),
-(51, '1778b', 22, 'Máy PS4 slim Mega pack 2', '7550000', 1, 'HDH375Y', '60000', NULL, NULL),
-(52, '1778b', 20, 'Áo Thun Nam Y2010 Basic AI08', '286000', 1, 'HDH375Y', '60000', NULL, NULL),
-(53, '1778b', 7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '230000', 1, 'HDH375Y', '60000', NULL, NULL),
-(54, '1778b', 6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '431000', 1, 'HDH375Y', '60000', NULL, NULL);
+(1, '427f9', 14, 'Áo Thun Nam Y2010 Basic AI05', '135000', 1, 'no', '25000', NULL, NULL),
+(2, 'f02ea', 10, 'Thức ăn cho chó nhỏ trưởng thành Farmina - N&D PUMPKIN vị gà, bí ngô, công thức lựu', '125000', 100, 'no', '10000', NULL, NULL),
+(3, 'f02ea', 8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '135000', 1, 'no', '10000', NULL, NULL),
+(4, '030aa', 15, 'Áo Thun Nam Y2010 Basic AI01', '145000', 1, 'no', '10000', NULL, NULL),
+(5, '030aa', 30, 'Chuột Pugio', '1500021', 1, 'no', '10000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +363,7 @@ CREATE TABLE `tbl_posts` (
   `post_id` int(11) NOT NULL,
   `post_title` tinytext NOT NULL,
   `post_slug` varchar(255) NOT NULL,
-  `post_desc` varchar(255) NOT NULL,
+  `post_desc` text NOT NULL,
   `post_content` text NOT NULL,
   `post_meta_keywords` varchar(255) NOT NULL,
   `post_status` int(11) NOT NULL,
@@ -325,8 +376,11 @@ CREATE TABLE `tbl_posts` (
 --
 
 INSERT INTO `tbl_posts` (`post_id`, `post_title`, `post_slug`, `post_desc`, `post_content`, `post_meta_keywords`, `post_status`, `post_image`, `cate_post_id`) VALUES
-(1, 'Test bài viết', 'test-bai-viet', '<p>121</p>', '<p>32</p>', '123', 0, 'yolov422.PNG', 1),
-(2, 'Test bài viết', 'test-bai-viet', '<p>12w</p>', '<p>42</p>', '12', 0, ' ', 1);
+(5, 'Test bài viết21312', 'test-bai-viet21312', '<p>1231245</p>', '<p>3123123</p>', '32', 0, '16831112_1215147678605475_5682172672147135032_n36.jpg', 3),
+(6, 'BV1', 'bv1', '<p>asd</p>', '<p>das</p>', 'sd', 0, 'WIN_20201006_22_44_46_Pro69.jpg', 5),
+(7, 'BC2', 'bc2', '<p>12324f</p>', '<p>321241</p>', '232', 0, ' ', 5),
+(8, 'Tai nạn chung cư', 'tai-nan-chung-cu', '<p>Tai nạn</p>', '<p>Qua khai th&aacute;c th&ocirc;ng tin từ người th&acirc;n của bệnh nh&acirc;n, b&aacute;c sĩ cho biết v&agrave;o khoảng 19h30 ng&agrave;y 7-12, tại t&ograve;a nh&agrave; chung cư A Sở T&agrave;i ch&iacute;nh (thuộc tổ 6, phường Quang Trung, TP Th&aacute;i B&igrave;nh, tỉnh Th&aacute;i B&igrave;nh), b&eacute; trai 3 tuổi đ&atilde; bị rơi từ khu vực banc&ocirc;ng tr&ecirc;n tầng 8 xuống đất.</p>\r\n\r\n<p>B&agrave; Đặng Thị Hồng - người ph&aacute;t hiện vụ tai nạn - cho biết v&agrave;o tối 7-12, khi đang dọn h&agrave;ng để ăn cơm tối th&igrave; giật m&igrave;nh nghe thấy tiếng động mạnh ph&iacute;a tr&ecirc;n m&aacute;i hi&ecirc;n lợp bằng t&ocirc;n xốp của gia đ&igrave;nh. Sau đ&oacute; ph&aacute;t hiện một khoảng l&otilde;m xuống l&agrave;m vỡ lớp xốp chống n&oacute;ng gắn ph&iacute;a dưới m&aacute;i t&ocirc;n.</p>\r\n\r\n<p>Sau tiếng động mạnh, c&aacute;c con của b&agrave; Hồng nhanh ch&oacute;ng l&ecirc;n m&aacute;i kiểm tra th&igrave; ph&aacute;t hiện một b&eacute; trai khoảng 3 tuổi đang ngồi ph&iacute;a tr&ecirc;n tấm t&ocirc;n của m&aacute;i hi&ecirc;n đ&oacute;. C&ugrave;ng l&uacute;c n&agrave;y, mẹ của ch&aacute;u b&eacute; ph&aacute;t hiện sự việc hớt hải chạy từ nh&agrave; ở tầng 8 xuống để c&ugrave;ng mọi người đưa ch&aacute;u v&agrave;o Bệnh viện Nhi Th&aacute;i B&igrave;nh cấp cứu.</p>\r\n\r\n<p><a href=\"https://cdn.tuoitre.vn/2020/12/10/chung-cu-16075924587041007951722.jpg\" target=\"_blank\" title=\"Khu vực cháu bé thoát chết sau khi rơi từ tầng 8 xuống bên dưới - Ảnh: H. LONG\"><img alt=\"Bé trai 3 tuổi thoát chết sau khi rơi từ tầng 8 cao 25m xuống đất - Ảnh 2.\" height=\"\" src=\"https://cdn.tuoitre.vn/thumb_w/586/2020/12/10/chung-cu-16075924587041007951722.jpg\" title=\"Bé trai 3 tuổi thoát chết sau khi rơi từ tầng 8 cao 25m xuống đất - Ảnh 2.\" width=\"\" /></a></p>\r\n\r\n<p>Khu vực ch&aacute;u b&eacute; tho&aacute;t chết sau khi rơi từ tầng 8 xuống b&ecirc;n dưới - Ảnh: H. LONG</p>\r\n\r\n<p>B&aacute;c sĩ Vũ Ngọc Hạnh - người trực tiếp điều trị cho ch&aacute;u b&eacute; khi nhập viện - cho biết c&aacute;c kết quả kh&aacute;m cận l&acirc;m s&agrave;ng như chụp CT, si&ecirc;u &acirc;m ổ bụng, X-Quang ngực, cột sống v&agrave; khung chậu... đều cho thấy b&igrave;nh thường. Tuy nhi&ecirc;n, bệnh viện vẫn quyết định giữ ch&aacute;u b&eacute; lại để theo d&otilde;i th&ecirc;m.</p>\r\n\r\n<p>Được biết, gia đ&igrave;nh b&eacute; trai sống ở tầng 8 của t&ograve;a chung cư v&agrave; căn hộ đang tiến h&agrave;nh sửa chữa một số hạng mục, trong đ&oacute; đ&atilde; thay h&agrave;ng r&agrave;o chắn của banc&ocirc;ng bằng cửa k&iacute;nh nhưng lại kh&ocirc;ng lắp song cửa.</p>\r\n\r\n<p>Nhiều khả năng, b&eacute; trai đ&atilde; nho&agrave;i người ra ngo&agrave;i banc&ocirc;ng n&ecirc;n bị rơi xuống đất. Vị tr&iacute; b&eacute; trai tr&egrave;o rồi ng&atilde; cao hơn 25m so với mặt đất. May mắn tầng 1 nơi nạn nh&acirc;n rơi xuống c&oacute; lắp th&ecirc;m m&aacute;i t&ocirc;n xốp để phục vụ kinh doanh n&ecirc;n c&uacute; ng&atilde; chỉ l&agrave;m l&otilde;m một phần tấm t&ocirc;n, vỡ mảng xốp b&ecirc;n dưới.</p>', 'tai nạn', 0, ' ', 5),
+(9, 'Chí tài qua đời', 'chi-tai-qua-doi', '<p>TTO - Chiều 10-12, đại diện gia đ&igrave;nh cố nghệ sĩ Ch&iacute; T&agrave;i đ&atilde; c&ocirc;ng bố c&aacute;o ph&oacute;, th&ocirc;ng tin lễ tang của &ocirc;ng đến với bạn b&egrave;, đồng nghiệp v&agrave; người h&acirc;m mộ. Mọi người c&oacute; thể đến viếng &ocirc;ng v&agrave;o ng&agrave;y 12-12, sau lễ viếng, gia đ&igrave;nh sẽ đưa thi thể Ch&iacute; T&agrave;i sang Mỹ.</p>', '<p><a href=\"https://cdn.tuoitre.vn/2020/12/10/img0082-16075926449761919220830.jpg\" target=\"_blank\" title=\"Chí Tài diễn trên sân khấu Nụ Cười Mới năm 2008 - Ảnh: GIA TIẾN\"><img alt=\"Gia đình công bố cáo phó và lễ viếng danh hài Chí Tài tại Việt Nam - Ảnh 1.\" height=\"\" src=\"https://cdn.tuoitre.vn/thumb_w/586/2020/12/10/img0082-16075926449761919220830.jpg\" title=\"Gia đình công bố cáo phó và lễ viếng danh hài Chí Tài tại Việt Nam - Ảnh 1.\" width=\"\" /></a></p>\r\n\r\n<p><a href=\"https://cdn.tuoitre.vn/2020/12/10/img0082-16075926449761919220830.jpg\" target=\"_blank\" title=\"Chí Tài diễn trên sân khấu Nụ Cười Mới năm 2008 - Ảnh: GIA TIẾN\"><iframe id=\"div_abd_top\" src=\"https://media.adnetwork.vn/html5/B7294_Habeco/09Dec2020/InImage_PC_Video_V3/index_iframe_inimage.html?YmFubmVyX2lkPTE2MDc1MDcyMDQmYWJkX2Jhbm5lcl92aWRlbz1odHRwczovL3NlY3VyZS1kcy5zZXJ2aW5nLXN5cy5jb20vcmVzb3VyY2VzL1BST0QvYXNzZXQvMjkwODkvVklERU8vMjAyMDEyMDQvQjcyOTRfSGFiZWNvXzE1c19EZWMyMDIwXzU4NjY1MDA3MTg5MDgwMzcwLm1wNCZhYmRfbWVkaWFfZG9tYWluX2ltPS8vbWVkaWEuYWRuZXR3b3JrLnZuL2h0bWw1JmFiZF9jbGlja191cmxfaW09aHR0cHMlM0ElMkYlMkZjbGsuYW1iaWVudGRzcC5jb20lMkZ0cmFjayUyRmNsayUzRnZjJTNEZ2FqJTI2dGFnaWQlM0QxNTg0NTg0MDM1JTI2YnJzJTNEOTE3MzIwMTUyNzAyNDg2NjAlMjZ1aWQlM0Rva2hrdXh3d2dsdiUyNnN1aWQlM0RwbmZ6dzJ4cnk2MnUlMjZhZSUzRDElMjZhcyUzRDYxMHgxMDAlMjZjdHIlM0RWTiUyNmN0eSUzREhPX0NISV9NSU5IX0NJVFklMjZvcyUzRFdJTkRPV1MlMjZicnclM0RjaHJvbWUlMjZkdnQlM0QyJTI2ZG9tJTNEdHVvaXRyZS52biUyNmFpZCUyNmFiZGwlMjZmaWQlM0QxNjA3NTAyMTY0JTI2ZGlkJTNEZ2F4LTZoZmo0OHJtNWY0OSUyNmNyaWQlM0QxNjA3NTA3MjA0JTI2dHMlM0QxNjA3NTk4OTEwJTI2cm5kJTNEMXhiODliNzRhYiUyNnRvayUzRHl4ZWpncHM3MDN3ZSUyNnJlZGlyJTNEaHR0cHMlMjUzQSUyNTJGJTI1MkZoYWJlY28uY29tLnZuJTI1MkZkZWZhdWx0LmFzcHglMjUzRnBhZ2UlMjUzRHByb2R1Y3QlMjUyNmRvJTI1M0Ricm93c2UlMjUyNmNhdGVnb3J5X2lkJTI1M0Q2ZjE3MjA4ZC1mMjM1LTQ0MTktODY1MS01ZjFlMDY5OWE0NDclMjUyNnV0bV9zb3VyY2UlMjUzRERWTiUyNTI2dXRtX21lZGl1bSUyNTNEY3BtJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRFBSTy1UQlRFVDIwMjElMjUyNnV0bV9jb250ZW50JTI1M0RpbmltYWdldmlkZW9QQyZ3X2ltZz01ODYmaF9pbWc9Mzkx\"></iframe><iframe id=\"div_abd_bot\" src=\"https://media.adnetwork.vn/html5/B7294_Habeco/09Dec2020/InImage_PC_Video_V3/banner/index.html?YmFubmVyX2lkPTE2MDc1MDcyMDQmYWJkX2Jhbm5lcl92aWRlbz1odHRwczovL3NlY3VyZS1kcy5zZXJ2aW5nLXN5cy5jb20vcmVzb3VyY2VzL1BST0QvYXNzZXQvMjkwODkvVklERU8vMjAyMDEyMDQvQjcyOTRfSGFiZWNvXzE1c19EZWMyMDIwXzU4NjY1MDA3MTg5MDgwMzcwLm1wNCZhYmRfbWVkaWFfZG9tYWluX2ltPS8vbWVkaWEuYWRuZXR3b3JrLnZuL2h0bWw1JmFiZF9jbGlja191cmxfaW09aHR0cHMlM0ElMkYlMkZjbGsuYW1iaWVudGRzcC5jb20lMkZ0cmFjayUyRmNsayUzRnZjJTNEZ2FqJTI2dGFnaWQlM0QxNTg0NTg0MDM1JTI2YnJzJTNEOTE3MzIwMTUyNzAyNDg2NjAlMjZ1aWQlM0Rva2hrdXh3d2dsdiUyNnN1aWQlM0RwbmZ6dzJ4cnk2MnUlMjZhZSUzRDElMjZhcyUzRDYxMHgxMDAlMjZjdHIlM0RWTiUyNmN0eSUzREhPX0NISV9NSU5IX0NJVFklMjZvcyUzRFdJTkRPV1MlMjZicnclM0RjaHJvbWUlMjZkdnQlM0QyJTI2ZG9tJTNEdHVvaXRyZS52biUyNmFpZCUyNmFiZGwlMjZmaWQlM0QxNjA3NTAyMTY0JTI2ZGlkJTNEZ2F4LTZoZmo0OHJtNWY0OSUyNmNyaWQlM0QxNjA3NTA3MjA0JTI2dHMlM0QxNjA3NTk4OTEwJTI2cm5kJTNEMXhiODliNzRhYiUyNnRvayUzRHl4ZWpncHM3MDN3ZSUyNnJlZGlyJTNEaHR0cHMlMjUzQSUyNTJGJTI1MkZoYWJlY28uY29tLnZuJTI1MkZkZWZhdWx0LmFzcHglMjUzRnBhZ2UlMjUzRHByb2R1Y3QlMjUyNmRvJTI1M0Ricm93c2UlMjUyNmNhdGVnb3J5X2lkJTI1M0Q2ZjE3MjA4ZC1mMjM1LTQ0MTktODY1MS01ZjFlMDY5OWE0NDclMjUyNnV0bV9zb3VyY2UlMjUzRERWTiUyNTI2dXRtX21lZGl1bSUyNTNEY3BtJTI1MjZ1dG1fY2FtcGFpZ24lMjUzRFBSTy1UQlRFVDIwMjElMjUyNnV0bV9jb250ZW50JTI1M0RpbmltYWdldmlkZW9QQyZ3X2ltZz01ODYmaF9pbWc9Mzkx\"></iframe></a></p>\r\n\r\n<p>Ch&iacute; T&agrave;i diễn tr&ecirc;n s&acirc;n khấu Nụ Cười Mới năm 2008 - Ảnh: GIA TIẾN</p>\r\n\r\n<p>Theo c&aacute;o ph&oacute;, nghệ sĩ Ch&iacute; T&agrave;i (Giuse Nguyễn Ch&iacute; T&agrave;i) qua đời l&uacute;c 13h35 ng&agrave;y 9-12, hưởng thọ 63 tuổi. Tang lễ sẽ được tổ chức l&uacute;c 7h45 ng&agrave;y 12-12, lễ viếng từ 9h-16h ng&agrave;y 12-12 tại Nh&agrave; tang lễ Bộ Quốc ph&ograve;ng, số 5 Phạm Ngũ L&atilde;o, quận G&ograve; Vấp (TP.HCM).</p>\r\n\r\n<p>Sau đ&oacute;, thi h&agrave;i nghệ sĩ Ch&iacute; T&agrave;i sẽ đuợc đưa đến s&acirc;n bay T&acirc;n Sơn Nhất để l&agrave;m thủ tục về Mỹ theo nguyện vọng của gia đ&igrave;nh. Trưởng ban tang lễ l&agrave; nghệ sĩ Ho&agrave;i Linh, người bạn tri kỷ của nghệ sĩ Ch&iacute; T&agrave;i.</p>\r\n\r\n<p>H&ocirc;m 9-12, chị vợ của Ch&iacute; T&agrave;i tại Việt Nam cho biết b&agrave; Phương Loan, vợ Ch&iacute; T&agrave;i, c&oacute; nguyện vọng&nbsp;<a href=\"https://tuoitre.vn/gia-dinh-muon-nho-hoai-linh-lo-thu-tuc-dua-thi-hai-chi-tai-qua-my-20201209194740124.htm\" target=\"_blank\" title=\"ủy quyền nghệ sĩ Hoài Linh\">ủy quyền nghệ sĩ Ho&agrave;i Linh</a>&nbsp;l&agrave;m thủ tục đưa thi h&agrave;i chồng qua Mỹ.</p>\r\n\r\n<p><a href=\"https://tuoitre.vn/danh-hai-chi-tai-qua-doi-vi-dot-quy-2020120916004398.htm\" target=\"_blank\" title=\"Danh hài Chí Tài qua đời\">Danh h&agrave;i Ch&iacute; T&agrave;i qua đời</a>&nbsp;chiều 9-12 do đột quỵ. &Ocirc;ng được đưa đi cấp cứu tại bệnh viện ở quận Ph&uacute; Nhuận, TP.HCM nhưng kh&ocirc;ng qua khỏi. Khi nghe tin, Ho&agrave;i Linh đ&atilde; đến bệnh viện v&agrave; ở b&ecirc;n Ch&iacute; T&agrave;i trong những ph&uacute;t cuối.</p>\r\n\r\n<p>Tối c&ugrave;ng ng&agrave;y, thi thể nghệ sĩ Ch&iacute; T&agrave;i đ&atilde; được đưa đến nh&agrave; đại thể, Trung t&acirc;m ph&aacute;p y TP.HCM. Nhiều người th&acirc;n, nghệ sĩ đồng nghiệp... đ&atilde; đến nh&igrave;n mặt &ocirc;ng lần cuối.</p>', 'chi tai', 0, 'img0082-1607592644976191922083027.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -342,8 +396,8 @@ CREATE TABLE `tbl_product` (
   `product_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
   `brand_id` int(11) UNSIGNED NOT NULL,
-  `product_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_desc` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_status` int(11) NOT NULL,
@@ -358,14 +412,14 @@ CREATE TABLE `tbl_product` (
 INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_quantity`, `product_sold`, `product_slug`, `category_id`, `brand_id`, `product_desc`, `product_content`, `product_price`, `product_image`, `product_status`, `created_at`, `updated_at`) VALUES
 (6, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận-10kg', '40', 10, 'royal-canin-urinary-canine-dog-2kg-danh-cho-cho-bi-soi-than-10kg', 8, 8, '<p>&nbsp;</p>\r\n\r\n<p>Royal Canin Urinary Canine Dog 2kg - D&agrave;nh cho ch&oacute; bị sỏi thận</p>', '<p><strong>Nguy&ecirc;n liệu</strong></p>\r\n\r\n<p>Bột bắp, gạo, chất b&eacute;o động vật, protein gia cầm, gluten bắp, kho&aacute;ng chất, protein động vật, xơ thực vật, dầu đậu n&agrave;nh, dầu c&aacute;, fructo-oligo-sacarit, monoglycerit v&agrave; diglycerit của axit palmitic v&agrave; stearic từ phản ứng este h&oacute;a với axit citric, chiết xuất c&uacute;c vạn thọ (nguồn lutein).<br />\r\nNguồn protein: protein gia cầm, gluten bắp, protein động vật.</p>\r\n\r\n<p>Phụ gia dinh dưỡng: Vitamin A, Vitamin D3, E1(Sắt), E2 (I ốt), E4 (Đồng), E5 (Mangan), E6 (Kẽm), E8 (Selen), Chất axit h&oacute;a nước tiểu: Canxi Sunfat (0.88%). Chất chống oxi h&oacute;a.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_Thnhphndinhdng.jpg\" /></p>\r\n\r\n<p><strong>Đặc t&iacute;nh nổi bật</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_ctnhnibt.jpg\" /></p>\r\n\r\n<p><strong>Khẩu phần ăn chuẩn</strong>&nbsp;</p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4372_Bngnthamkho.jpg\" /></p>', '431000', '250_4341_ava66.jpg', 0, NULL, NULL),
 (7, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 3kg', '98', 2, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-heo-bi-ngo-va-tao-3kg', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina N&amp;D PUMPKIN vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o 3kg</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/78cb3d06-bf55-435e-bdf7-33be79a67da8\" width=\"250\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>', '230000', '250_4343_ava69.jpg', 0, NULL, NULL),
-(8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '98', 2, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-heo-bi-ngo-va-tao-7kg', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina N&amp;D PUMPKIN vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o 7kg</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/78cb3d06-bf55-435e-bdf7-33be79a67da8\" width=\"250\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>', '135000', '250_4343_ava69.jpg', 0, NULL, NULL),
+(8, 'Thức ăn cho chó nhỏ trưởng thành Farmina N&D PUMPKIN vị heo, bí ngô và táo 7kg', '97', 3, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-heo-bi-ngo-va-tao-7kg', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina N&amp;D PUMPKIN vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o 7kg</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/78cb3d06-bf55-435e-bdf7-33be79a67da8\" width=\"250\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>', '135000', '250_4343_ava69.jpg', 0, NULL, NULL),
 (9, 'Royal Canin Urinary Canine Dog 2kg - Dành cho chó bị sỏi thận', '60', NULL, 'royal-canin-urinary-canine-dog-2kg-danh-cho-cho-bi-soi-than', 8, 8, '<p>Royal Canin Urinary Canine Dog 2kg - D&agrave;nh cho ch&oacute; bị sỏi thận</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG boar, apple mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị heo, b&iacute; ng&ocirc; v&agrave; t&aacute;o</p>\r\n\r\n<p><strong>Th&agrave;nh phần&nbsp;</strong></p>\r\n\r\n<p>Thịt lợn rừng kh&ocirc;ng xương (24%), protein thịt lợn mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, dầu c&aacute;, chất xơ thực vật, c&agrave; rốt kh&ocirc;, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, t&aacute;o khử nước (0,5%), bột rau bina, psyllium (0,3%), bột lựu, bột blackcurrant, cam ngọt, nước ngọt , chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>\r\n\r\n<p><strong>Bảng ăn tham khảo</strong></p>\r\n\r\n<p><img alt=\"\" src=\"https://www.petcity.vn/media/lib/4284_bngn.png\" /></p>', '450000', '1444_SmartheartPuppy54.jpg', 0, NULL, NULL),
-(10, 'Thức ăn cho chó nhỏ trưởng thành Farmina - N&D PUMPKIN vị gà, bí ngô, công thức lựu', '100', NULL, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-ga-bi-ngo-cong-thuc-luu', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina - N&amp;D PUMPKIN vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu&nbsp;</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG chicken mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu</p>\r\n\r\n<p><strong>Th&agrave;nh phần</strong></p>\r\n\r\n<p>G&agrave; kh&ocirc;ng xương (24%), protein g&agrave; mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, c&aacute; tr&iacute;ch, protein c&aacute; tr&iacute;ch mất nước, dầu c&aacute;, xơ thực vật, sấy kh&ocirc; c&agrave; rốt, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, bột lựu (0,5%), t&aacute;o khử nước, bột rau bina, psyllium (0,3%), bột blackcurrant, cam kh&ocirc;, bột ngọt 0,2%), glucosamine, chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>\r\n\r\n<p><strong>Bảng ăn tham khảo</strong></p>\r\n\r\n<p>&nbsp;<img alt=\"\" src=\"https://www.petcity.vn/media/lib/4283_ntk.png\" /></p>', '125000', '12315.jpg', 0, NULL, NULL),
+(10, 'Thức ăn cho chó nhỏ trưởng thành Farmina - N&D PUMPKIN vị gà, bí ngô, công thức lựu', '0', 100, 'thuc-an-cho-cho-nho-truong-thanh-farmina-nd-pumpkin-vi-ga-bi-ngo-cong-thuc-luu', 8, 8, '<p>Thức ăn cho ch&oacute; nhỏ trưởng th&agrave;nh Farmina - N&amp;D PUMPKIN vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu&nbsp;</p>', '<h3>Farmina - N&amp;D PUMPKIN DOG chicken mini adult</h3>\r\n\r\n<p>(d&agrave;nh cho ch&oacute; nhỏ tr&ecirc;n 10 th&aacute;ng tuổi)</p>\r\n\r\n<p>Vị g&agrave;, b&iacute; ng&ocirc;, c&ocirc;ng thức lựu</p>\r\n\r\n<p><strong>Th&agrave;nh phần</strong></p>\r\n\r\n<p>G&agrave; kh&ocirc;ng xương (24%), protein g&agrave; mất nước (22%), tinh bột đậu (20%), mỡ g&agrave;, b&iacute; ng&ocirc; khử nước (5%), trứng khử nước, c&aacute; tr&iacute;ch, protein c&aacute; tr&iacute;ch mất nước, dầu c&aacute;, xơ thực vật, sấy kh&ocirc; c&agrave; rốt, cỏ linh lăng kh&ocirc;, inulin, fructooligosacarit, mannanoligosacarit, bột lựu (0,5%), t&aacute;o khử nước, bột rau bina, psyllium (0,3%), bột blackcurrant, cam kh&ocirc;, bột ngọt 0,2%), glucosamine, chondroitin sulphate, chiết xuất c&uacute;c vạn thọ (nguồn lutein)</p>\r\n\r\n<p><strong>Bảng ăn tham khảo</strong></p>\r\n\r\n<p>&nbsp;<img alt=\"\" src=\"https://www.petcity.vn/media/lib/4283_ntk.png\" /></p>', '125000', '12315.jpg', 0, NULL, NULL),
 (11, 'Thức ăn ướt Me-o Delite vị cá ngừ và thịt gà xé 70gr', '100', NULL, 'thuc-an-uot-me-o-delite-vi-ca-ngu-va-thit-ga-xe-70gr', 8, 8, '<p>Thức ăn ướt Me-o Delite vị c&aacute; ngừ v&agrave; thịt g&agrave; x&eacute; 70gr</p>', '<p><strong>Thức ăn ướt Me-o Delite vị c&aacute; ngừ v&agrave; thịt g&agrave; x&eacute;</strong></p>\r\n\r\n<p><strong>Nguy&ecirc;n Liệu Ch&iacute;nh:</strong>&nbsp;C&aacute; ngừ tươi, thịt g&agrave; x&eacute;, chất tạo đ&ocirc;ng, chất điều vị, taurin, c&aacute;c vitamin v&agrave; kho&aacute;ng chất.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng&nbsp;</strong></p>\r\n\r\n<p>Chất đạm : 8%</p>\r\n\r\n<p>Chất b&eacute;o : 0.3%&nbsp;</p>\r\n\r\n<p>Chất xơ : 1%</p>\r\n\r\n<p>Độ ẩm : 90%</p>\r\n\r\n<p><strong>Điểm nổi bật&nbsp;</strong></p>\r\n\r\n<ul>\r\n	<li>Được l&agrave;m từ c&aacute; thật</li>\r\n	<li>Taurine: Tăng cường hệ miễn dịch v&agrave; thị gi&aacute;c.</li>\r\n	<li>Biotin/ Zinc: Gi&uacute;p l&agrave;n da v&agrave; bộ long khỏe mạnh.</li>\r\n	<li>Vitamin C: Gi&uacute;p tăng cường hệ miễn dịch.</li>\r\n</ul>\r\n\r\n<p><strong>Bảo quản:</strong>&nbsp;Nơi kh&ocirc; r&aacute;o tho&aacute;ng m&aacute;t</p>', '25000', '12342.jpg', 0, NULL, NULL),
 (12, 'Whiskas - Pate Tuna junior 85g', '90', NULL, 'whiskas-pate-tuna-junior-85g', 8, 8, '<p>Whiskas - Pate Tuna junior 85g</p>', '<p>Whiskas - Pate Tuna junior 85g</p>', '10000', '1251_790_royal_canin_indoor_2726.jpg', 0, NULL, NULL),
 (13, 'Súp thưởng Ciao vị cá ngừ và sò điệp cho mèo (14g*20)', '100', NULL, 'sup-thuong-ciao-vi-ca-ngu-va-so-diep-cho-meo-14g20', 8, 8, '<p>S&uacute;p thưởng Ciao vị c&aacute; ngừ v&agrave; s&ograve; điệp cho m&egrave;o (14g*20)</p>', '<p><strong>S&uacute;p thưởng Ciao vị c&aacute; ngừ v&agrave; s&ograve; điệp</strong></p>\r\n\r\n<p><strong>Th&agrave;nh phần</strong></p>\r\n\r\n<p>C&aacute; ngừ, s&ograve; điệp, tinh bột biến t&iacute;nh, chất tạo m&ugrave;i, Guar Gum, chiết xuất s&ograve; điệp, Vitamin E, Carrageenan, bột tr&agrave; xanh, Fructooligosaccharides.</p>\r\n\r\n<p><strong>Th&agrave;nh phần dinh dưỡng&nbsp;</strong></p>\r\n\r\n<p>Độ ẩm &le; 93,0 %; Protein th&ocirc; &ge; 7,0 %; B&eacute;o th&ocirc; &ge; 0,2 %; Xơ th&ocirc; &le; 1,0 %; Kho&aacute;ng tổng số &le; 2,0 %</p>\r\n\r\n<p><strong>Sử dụng</strong></p>\r\n\r\n<p>Cho ăn trực tiếp &ndash; D&ugrave;ng như b&aacute;nh thưởng.</p>\r\n\r\n<p>Khẩu phần: 56g/ ng&agrave;y.</p>\r\n\r\n<p>Sản phẩm n&agrave;y kh&ocirc;ng d&ugrave;ng thay thế bữa ăn ch&iacute;nh. Lu&ocirc;n giữ cung cấp nước sạch thường xuy&ecirc;n.</p>', '138000', '250_4370_ciao_g_____c___ng___7.png', 0, NULL, NULL),
-(14, 'Áo Thun Nam Y2010 Basic AI05', '60', NULL, 'ao-thun-nam-y2010-basic-ai05', 3, 4, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '135000', 'd84OO5_simg_de2fe0_500x500_maxb59.jpg', 0, NULL, NULL),
-(15, 'Áo Thun Nam Y2010 Basic AI01', '60', NULL, 'ao-thun-nam-y2010-basic-ai01', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '145000', 'ao787.jpg', 0, NULL, NULL),
+(14, 'Áo Thun Nam Y2010 Basic AI05', '59', 1, 'ao-thun-nam-y2010-basic-ai05', 3, 4, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '135000', 'd84OO5_simg_de2fe0_500x500_maxb59.jpg', 0, NULL, NULL),
+(15, 'Áo Thun Nam Y2010 Basic AI01', '59', 1, 'ao-thun-nam-y2010-basic-ai01', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '145000', 'ao787.jpg', 0, NULL, NULL),
 (16, 'Áo Thun Nam Y2010 Basic AI02', '70', NULL, 'ao-thun-nam-y2010-basic-ai02', 3, 4, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '195000', 'd84OO5_simg_de2fe0_500x500_maxb59.jpg', 0, NULL, NULL),
 (17, 'Áo Thun Nam Y2010 Basic AI03', '80', NULL, 'ao-thun-nam-y2010-basic-ai03', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '295000', 'ao423.jpg', 0, NULL, NULL),
 (18, 'Áo Thun Nam Y2010 Basic AI04', '80', NULL, 'ao-thun-nam-y2010-basic-ai04', 3, 8, '<p>&Aacute;o Thun Nam Y2010 Basic AI05</p>', '<h5>Tiết kiệm&nbsp;-37,000 đ</h5>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>0019492001</td>\r\n			<td>Đen, M</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492002</td>\r\n			<td>Đen, L</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại CH</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>0019492003</td>\r\n			<td>Đen, XL</td>\r\n			<td><a href=\"javascript:void(0);\" title=\"\"><strong>37</strong>&nbsp;CH c&ograve;n</a></td>\r\n			<td>Sale đ&nbsp;<strong>148,000</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>B&aacute;n tại C</strong></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<figure class=\"easyimage easyimage-full\"><img alt=\"\" src=\"blob:http://localhost/dded5595-6630-4325-a8f7-dbc35a0b7bf6\" width=\"500\" />\r\n<figcaption></figcaption>\r\n</figure>\r\n\r\n<p>&nbsp;</p>', '395000', 'ao345.jpg', 0, NULL, NULL),
@@ -377,7 +431,8 @@ INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_quantity`, `pr
 (24, 'Sách ngôn tình hồ ly tinh', '10', NULL, 'sach-ngon-tinh-ho-ly-tinh', 6, 6, '<p>S&aacute;ch ng&ocirc;n t&igrave;nh hồ ly tinh</p>', '<p>S&aacute;ch ng&ocirc;n t&igrave;nh hồ ly tinh&nbsp;</p>\r\n\r\n<p>&nbsp;</p>', '500000', 'sachngontinh68.jpg', 0, NULL, NULL),
 (26, 'Con mèo cắn dây', '1', NULL, 'con-meo-can-day', 10, 10, '<p>Con m&egrave;o ngu ngốc</p>', '<p>Giống Trần Đức Bo</p>', '30000000', '116753503_1133064233746135_4192891304284144680_n15.jpg', 0, NULL, NULL),
 (27, 'Siêu to khổng lồ', '3', NULL, 'sieu-to-khong-lo', 10, 10, '<p>1</p>', '<p>1</p>', '10000000', '121248734_797784467431301_6474917507939478925_o62.jpg', 0, NULL, NULL),
-(28, 'Sách kiếm hiệp 01', '10', NULL, 'sach-kiem-hiep-01', 6, 10, '<p>kiếm hiệp</p>', '<p>avb</p>', '15000', 'dai-duong-chi-than-cap-pho-ma-gia-poster-1560700874-220x3309.jpg', 0, NULL, NULL);
+(28, 'Sách kiếm hiệp 01', '10', NULL, 'sach-kiem-hiep-01', 6, 10, '<p>kiếm hiệp</p>', '<p>avb</p>', '15000', 'dai-duong-chi-than-cap-pho-ma-gia-poster-1560700874-220x3309.jpg', 0, NULL, NULL),
+(30, 'Chuột Pugio', '5', 1, 'chuot-pugio', 10, 10, NULL, NULL, '1500021', 'rog pugio99.jpg', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1154,9 +1209,10 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_address`, `shipping_phone`, `shipping_email`, `shipping_notes`, `shipping_method`, `created_at`, `updated_at`) VALUES
-(17, 'Hieu Tấn', '245 Nguyễn Văn Khạ, Tân An Hội .Thị trấn Củ Chi,TPHCM', '0932023992', 'Hieu dep giai', 'Nhanh nha mày', 1, NULL, NULL),
-(18, 'Hieu tấn', '123/123', '0932023992', 'dsadas@gmail.com', 'dasdasdasdas', 1, NULL, NULL),
-(19, 'Hieu tấn', '123/123', '0932023992', 'dsadas@gmail.com', 'dasdasdasdas', 0, NULL, NULL);
+(20, 'Vũ Hà Anh', '108 Hồng Hà, phường 2, Tân Bình', '0366765835', '17520258@gm.uit.edu.vn', 'abc', 1, NULL, NULL),
+(21, 'Vũ Hà Anh', '108 Hồng Hà, phường 2, Tân Bình', '0366765835', '17520258@gm.uit.edu.vn', 'note', 0, NULL, NULL),
+(22, 'Vũ Hà Anh', '108 Hồng Hà, phường 2, Tân Bình', '0366765835', '17520258@gm.uit.edu.vn', '[p', 1, NULL, NULL),
+(23, 'Vũ Hà Anh', '108 Hồng Hà, phường 2, Tân Bình', '0366765835', '17520258@gm.uit.edu.vn', '123', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1204,6 +1260,96 @@ INSERT INTO `tbl_social` (`user_id`, `provider_user_id`, `provider`, `user`) VAL
 (13, '111257400060277532733', 'GOOGLE', 12),
 (14, '111264198467826812391', 'GOOGLE', 2),
 (15, '108162077516942840028', 'GOOGLE', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_statistical`
+--
+
+CREATE TABLE `tbl_statistical` (
+  `id_statistical` int(11) NOT NULL,
+  `order_date` varchar(100) NOT NULL,
+  `sales` varchar(200) NOT NULL,
+  `profit` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_order` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_statistical`
+--
+
+INSERT INTO `tbl_statistical` (`id_statistical`, `order_date`, `sales`, `profit`, `quantity`, `total_order`) VALUES
+(1, '2020-11-08', '20000000', '7000000', 90, 10),
+(2, '2020-11-07', '68000000', '9000000', 60, 8),
+(3, '2020-11-06', '30000000', '3000000', 45, 7),
+(4, '2020-11-05', '45000000', '3800000', 30, 9),
+(5, '2020-11-04', '30000000', '1500000', 15, 12),
+(6, '2020-11-03', '8000000', '700000', 65, 30),
+(7, '2020-11-02', '28000000', '23000000', 32, 20),
+(8, '2020-11-01', '25000000', '20000000', 7, 6),
+(9, '2020-10-31', '36000000', '28000000', 40, 15),
+(10, '2020-10-30', '50000000', '13000000', 89, 19),
+(11, '2020-10-29', '20000000', '15000000', 63, 11),
+(12, '2020-10-28', '25000000', '16000000', 94, 14),
+(13, '2020-10-27', '32000000', '17000000', 16, 10),
+(14, '2020-10-26', '33000000', '19000000', 14, 5),
+(15, '2020-10-25', '36000000', '18000000', 22, 12),
+(16, '2020-10-24', '34000000', '20000000', 33, 20),
+(17, '2020-10-23', '25000000', '16000000', 94, 14),
+(18, '2020-10-22', '12000000', '7000000', 16, 10),
+(19, '2020-10-21', '63000000', '19000000', 14, 5),
+(20, '2020-10-20', '66000000', '18000000', 22, 12),
+(21, '2020-10-19', '74000000', '20000000', 33, 20),
+(22, '2020-10-18', '63000000', '19000000', 14, 5),
+(23, '2020-10-17', '66000000', '18000000', 23, 12),
+(24, '2020-10-16', '74000000', '20000000', 32, 20),
+(25, '2020-10-15', '63000000', '19000000', 14, 5),
+(26, '2020-10-14', '66000000', '18000000', 23, 12),
+(27, '2020-10-13', '74000000', '20000000', 33, 20),
+(28, '2020-10-12', '66000000', '18000000', 23, 12),
+(29, '2020-10-11', '74000000', '20000000', 10, 20),
+(30, '2020-10-10', '63000000', '19000000', 14, 5),
+(31, '2020-10-09', '66000000', '18000000', 23, 12),
+(32, '2020-10-08', '74000000', '20000000', 15, 20),
+(33, '2020-10-07', '66000000', '18000000', 23, 12),
+(34, '2020-10-06', '74000000', '20000000', 30, 22),
+(35, '2020-10-05', '66000000', '18000000', 23, 12),
+(36, '2020-10-04', '74000000', '20000000', 32, 20),
+(37, '2020-10-03', '63000000', '19000000', 14, 5),
+(38, '2020-10-02', '66000000', '18000000', 23, 12),
+(39, '2020-10-01', '74000000', '20000000', 32, 20),
+(40, '2020-09-30', '63000000', '19000000', 14, 5),
+(41, '2020-09-29', '66000000', '18000000', 23, 12),
+(42, '2020-09-28', '74000000', '20000000', 15, 20),
+(43, '2020-09-27', '66000000', '18000000', 23, 12),
+(44, '2020-09-26', '74000000', '20000000', 30, 22),
+(45, '2020-09-25', '66000000', '18000000', 23, 12),
+(46, '2020-09-24', '74000000', '20000000', 32, 20),
+(47, '2020-09-23', '63000000', '19000000', 14, 5),
+(48, '2020-09-22', '66000000', '18000000', 23, 12),
+(49, '2020-09-21', '74000000', '20000000', 32, 20),
+(50, '2020-09-20', '63000000', '19000000', 14, 5),
+(51, '2020-09-19', '66000000', '18000000', 23, 12),
+(52, '2020-09-18', '74000000', '20000000', 15, 20),
+(53, '2020-09-17', '66000000', '18000000', 23, 12),
+(54, '2020-09-16', '74000000', '20000000', 30, 22),
+(55, '2020-09-15', '66000000', '18000000', 23, 12),
+(56, '2020-09-14', '74000000', '20000000', 32, 20),
+(57, '2020-09-13', '63000000', '19000000', 14, 5),
+(58, '2020-09-12', '66000000', '18000000', 23, 12),
+(59, '2020-09-11', '74000000', '20000000', 32, 20),
+(60, '2020-09-10', '63000000', '19000000', 14, 5),
+(61, '2020-09-09', '66000000', '18000000', 23, 12),
+(62, '2020-09-08', '74000000', '20000000', 15, 20),
+(63, '2020-09-07', '66000000', '18000000', 23, 12),
+(64, '2020-09-06', '74000000', '20000000', 30, 22),
+(65, '2020-09-05', '66000000', '18000000', 23, 12),
+(66, '2020-09-04', '74000000', '20000000', 32, 20),
+(67, '2020-09-03', '63000000', '19000000', 14, 5),
+(68, '2020-09-02', '66000000', '18000000', 23, 12),
+(69, '2020-09-01', '74000000', '20000000', 32, 20);
 
 -- --------------------------------------------------------
 
@@ -12545,6 +12691,18 @@ ALTER TABLE `tbl_feeship`
   ADD PRIMARY KEY (`fee_id`);
 
 --
+-- Indexes for table `tbl_gallery`
+--
+ALTER TABLE `tbl_gallery`
+  ADD PRIMARY KEY (`gallery_id`);
+
+--
+-- Indexes for table `tbl_information`
+--
+ALTER TABLE `tbl_information`
+  ADD PRIMARY KEY (`info_id`);
+
+--
 -- Indexes for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
@@ -12599,6 +12757,12 @@ ALTER TABLE `tbl_social`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `tbl_statistical`
+--
+ALTER TABLE `tbl_statistical`
+  ADD PRIMARY KEY (`id_statistical`);
+
+--
 -- Indexes for table `tbl_tinhthanhpho`
 --
 ALTER TABLE `tbl_tinhthanhpho`
@@ -12624,13 +12788,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_roles`
 --
 ALTER TABLE `admin_roles`
-  MODIFY `id_admin_roles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_admin_roles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_brand`
@@ -12642,7 +12806,7 @@ ALTER TABLE `tbl_brand`
 -- AUTO_INCREMENT for table `tbl_category_post`
 --
 ALTER TABLE `tbl_category_post`
-  MODIFY `cate_post_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cate_post_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
@@ -12660,37 +12824,49 @@ ALTER TABLE `tbl_coupon`
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
-  MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `fee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tbl_gallery`
+--
+ALTER TABLE `tbl_gallery`
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `tbl_information`
+--
+ALTER TABLE `tbl_information`
+  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_details`
 --
 ALTER TABLE `tbl_order_details`
-  MODIFY `order_details_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `order_details_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_posts`
 --
 ALTER TABLE `tbl_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
@@ -12702,7 +12878,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_slider`
@@ -12715,6 +12891,12 @@ ALTER TABLE `tbl_slider`
 --
 ALTER TABLE `tbl_social`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `tbl_statistical`
+--
+ALTER TABLE `tbl_statistical`
+  MODIFY `id_statistical` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `users`
