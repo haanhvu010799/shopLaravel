@@ -22,6 +22,8 @@ Route::get('/thuong-hieu/{brand_slug}','BrandProduct@show_brand_home');
 Route::get('/chi-tiet/{product_slug}','ProductController@details_product');
 
 //Backend
+
+Route::post('/dashboard-filter','AdminController@dashboard_filter');
 Route::post('/filter-by-date','AdminController@filter_by_date');
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');

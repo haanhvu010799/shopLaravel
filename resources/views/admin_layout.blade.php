@@ -12,7 +12,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Datapicker -->
 <link rel="stylesheet" href="{{asset('public/backend/css/jquery-ui.css')}}">
 
-
+<!-- Morris chart -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
@@ -31,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //calendar -->
 <!-- //font-awesome icons -->
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
-<script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
+<!-- <script src="{{asset('public/backend/js/raphael-min.js')}}"></script> -->
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
 
 </head>
@@ -224,14 +225,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery-ui.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
+<!-- Biểu đồ Morris -->
 <script type="text/javascript">
+
     $("#datepicker").datepicker({
         changeMonth: true,
         changeYear: true,
         prevText:"Tháng trước",
         nextText:"Tháng sau",
-        dateFormat:"dd-mm-yy",
+        dateFormat:"yy-mm-dd",
         dayNamesMin: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6", "Thứ 7","Chủ nhật"],
         duration:"slow"
         
@@ -241,28 +246,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         changeYear: true,
         prevText:"Tháng trước",
         nextText:"Tháng sau",
-        dateFormat:"dd-mm-yy",
+        dateFormat:"yy-mm-dd",
         dayNamesMin: ["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6", "Thứ 7","Chủ nhật"],
         duration:"slow"
     })
-    $('#btn-dashboard-filter').click(function(){
-        var _token = $('input[name="_token"]').val();
-        var from_date =$('#datepicker').val();
-        var to_date=$('#datepicker2').val();
-
-        $.ajax({
-            url:"{{url('/filter-by-date')}}",
-            method: "POST",
-            dataType:"JSON",
-            data:{from_date:from_date, to_date:to_date,_token:_token},
-            success:function(data)
-            {
-                chart.setData(data);
-            }
+    $(document).ready(function(){
+         chart30daysorder();
+        var chart= new Morris.Bar({
+            element:'chart',
+            parseTime: false,
+            hideHover:'auto',
+            xkey:'period',
+            ykeys:['order','sales','profit','quantity'],
+            labels: ['đơn hàng','doanh số','lợi nhuận','số lượng']
 
         });
+
+        function chart30daysorder(){
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url('/days-order')}}",
+                method:"POST",
+                dataType:"JSON",
+                data:{_token:_token},
+                success:function(data)
+                {
+                    chart.setData(data);
+                }
+            });
+
+        }
+        $('#dashboard-filter').change(function(){
+            var dashboard_value=$(this).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url('/dashboard-filter')}}",
+                method:"POST",
+                dataType:"JSON",
+                data:{"dashboard_value":dashboard_value,"_token":_token},
+                success:function(data)
+                {
+                    chart.setData(data);
+                }
+            });
+        });
+        $("#btn-dashboard-filter").click(function(){
+            var _token = $('input[name="_token"]').val();
+            var from_date =$('#datepicker').val();
+            var to_date=$('#datepicker2').val();
+            $.ajax({
+                url:"{{url('/filter-by-date')}}",
+                method: "POST",
+                dataType:"JSON",
+                data:{"from_date":from_date, "to_date":to_date, "_token":_token},
+                success:function(data)
+                {
+                    
+                    chart.setData(data);
+                }
+
+            });
+        }); 
+
     });
 </script>
+
+
 
 <script type="text/javascript">
 

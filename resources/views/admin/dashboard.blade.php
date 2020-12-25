@@ -28,8 +28,8 @@
 			<div class="col-md-2">
 				<p>
 					Chọn mốc thời gian:
-					<select class="dashboard-filter form-control">
-						<option>--Lựa chọn--</option>
+					<select class="dashboard-filter form-control" id="dashboard-filter">
+						<option>--Chọn mốc thời gian--</option>
 						<option value="7ngay">7 ngày vừa qua</option>
 						<option value="thangtruoc">Tháng trước</option>
 						<option value="thangnay">Tháng này</option>
@@ -38,10 +38,10 @@
 				</p>
 			</div>
 		</form >
-		<!-- <div class="col-md-12">
-			<div id="myfirstchart" style="height: 250px;"></div>
+		<div class="col-md-12">
+			<div id="chart" style="height: 250px;"></div>
 			
-		</div> -->
+		</div>
 	</div>
 </div>
 

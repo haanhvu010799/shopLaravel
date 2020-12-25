@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 use Session;
 use App\Social;
 use Socialite;
@@ -29,24 +30,7 @@ class AdminController extends Controller
             Session::put('admin_id',$account_name->admin_id);
             return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');  
     }
-    public function filter_by_date(Request $request){
-        $data= $request->all;
-        $from_date=$data['from_date'];
-        $to_date=$data['to_date'];
-        $get=Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
-        foreach ($get as $key => $val) {
-            $chart_data[] = array(
-                'period' => $val->order_date,
-                'order' => $val->total_order,
-                'sales' => $val->sales,
-                'profit' => $val->profit,
-                'quantity' => $val->order_date
 
-    
-            );
-        }
-        echo $data= json_encode($chart_data);
-    }
     public function findOrCreateUser($users, $provider){
             $authUser = Social::where('provider_user_id', $users->id)->first();
             if($authUser){
@@ -174,5 +158,50 @@ class AdminController extends Controller
         Session::put('admin_name',null);
         Session::put('admin_id',null);
         return Redirect::to('/admin');
+    }
+    public function filter_by_date(Request $request){
+        $data= $request->all;
+        $from_date= $_POST['from_date'];
+        $to_date= $_POST['to_date'];
+        $get=Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sales' => $val->sales,
+                'profit' => $val->profit,
+                'quantity' => $val->order_date
+            );
+        }
+         echo $data= json_encode($chart_data);
+    }
+    public function dashboard_filter(Request $request){
+        $data= $request->all();
+        $dau_thangnay=  Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $dau_thangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $cuoi_thangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+        $sub7days=Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $sub365days=Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+        $now= Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        if($_POST['dashboard_value']=='7ngay'){
+            $get= Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
+
+        }elseif ($_POST['dashboard_value']=='thangtruoc') {
+            $get= Statistic::whereBetween('order_date',[$dau_thangtruoc,$cuoi_thangtruoc])->orderBy('order_date','ASC')->get();
+        }elseif ($_POST['dashboard_value']=='thangnay') {
+            $get= Statistic::whereBetween('order_date',[$dau_thangnay,$now])->orderBy('order_date','ASC')->get();
+        }else {
+            $get= Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+        }
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sales' => $val->sales,
+                'profit' => $val->profit,
+                'quantity' => $val->order_date
+            );
+        }
+         echo $data= json_encode($chart_data);
     }
 }
