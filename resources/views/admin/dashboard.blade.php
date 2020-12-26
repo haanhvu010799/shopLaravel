@@ -1,10 +1,5 @@
 @extends('admin_layout')
 @section('admin_content')
-<!-- <head> -->
-<!-- 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-</head> -->
 <div class="container-fluid">
 	<style type="text/css">
 		p.title_thongke{
@@ -44,6 +39,7 @@
 			
 		</div>
 	</div>
+
 </div>
 
 @endsection

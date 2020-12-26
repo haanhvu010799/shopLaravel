@@ -4,7 +4,7 @@
   
   <div class="panel panel-default">
     <div class="panel-heading">
-     Thông tin đăng nhập
+     Thông tin người dùng
     </div>
     
     <div class="table-responsive">
@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-        
+          
           <tr>
             <td>{{$customer->customer_name}}</td>
             <td>{{$customer->customer_phone}}</td>
@@ -46,7 +46,7 @@
   
   <div class="panel panel-default">
     <div class="panel-heading">
-     Thông tin vận chuyển hàng
+     Thông tin vận chuyển
     </div>
     
     
@@ -121,12 +121,13 @@
               </label>
             </th>
             <th>Tên sản phẩm</th>
-            <th>Số lượng kho còn</th>
+            <th>Số lượng tồn kho</th>
             <th>Mã giảm giá</th>
-            <th>Phí ship hàng</th>
+            <th>Phí vận chuyển</th>
             <th>Số lượng</th>
-            <th>Giá sản phẩm</th>
-            <th>Tổng tiền</th>
+            <th>Giá bán ra</th>
+            <th>Giá nhập vào</th>
+            <th>Giá trị đơn hàng</th>
             
             <th style="width:30px;"></th>
           </tr>
@@ -173,6 +174,7 @@
 
             </td>
             <td>{{number_format($details->product_price ,0,',','.')}}đ</td>
+            <td>{{number_format($details->product_cost ,0,',','.')}}đ</td>
             <td>{{number_format($subtotal ,0,',','.')}}đ</td>
           </tr>
         @endforeach
@@ -184,19 +186,19 @@
               @if($coupon_condition==1)
                   @php
                   $total_after_coupon = ($total*$coupon_number)/100;
-                  echo 'Tổng giảm :'.number_format($total_after_coupon,0,',','.').'</br>';
+                  echo 'Số tiền được giảm :'.number_format($total_after_coupon,0,',','.').'</br>';
                   $total_coupon = $total + $details->product_feeship - $total_after_coupon ;
                   @endphp
               @else 
                   @php
-                  echo 'Tổng giảm :'.number_format($coupon_number,0,',','.').'k'.'</br>';
+                  echo 'Số tiền dược giảm :'.number_format($coupon_number,0,',','.').'k'.'</br>';
                   $total_coupon = $total + $details->product_feeship - $coupon_number ;
 
                   @endphp
               @endif
 
-              Phí ship : {{number_format($details->product_feeship,0,',','.')}}đ</br> 
-             Thanh toán: {{number_format($total_coupon,0,',','.')}}đ 
+              Phí vận chuyển : {{number_format($details->product_feeship,0,',','.')}}đ</br> 
+             Số tiền thanh toán: {{number_format($total_coupon,0,',','.')}}đ 
             </td>
           </tr>
           <tr>

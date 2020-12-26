@@ -30,10 +30,10 @@ class CategoryPost extends Controller
       $this->AuthLogin();
     	$data = $request->all();
       $category_post = new CatePost();
-      $category_post -> cate_post_name =  $data['cate_post_name'];
-      $category_post -> cate_post_slug =  $data['cate_post_slug'];
-      $category_post -> cate_post_desc =  $data['cate_post_desc'];
-      $category_post -> cate_post_status =  $data['cate_post_status'];
+      $category_post ->cate_post_name =  $data['cate_post_name'];
+      $category_post ->cate_post_slug =  $data['cate_post_slug'];
+      $category_post ->cate_post_desc =  $data['cate_post_desc'];
+      $category_post ->cate_post_status =  $data['cate_post_status'];
       $category_post-> save();
     	Session::put('message','Thêm danh mục bài viết thành công');
     	return redirect()->back();
@@ -55,10 +55,10 @@ class CategoryPost extends Controller
 
         $data = $request->all();
         $category_post= CatePost::find($cate_id);
-        $category_post -> cate_post_name =  $data['cate_post_name'];
-        $category_post -> cate_post_slug =  $data['cate_post_slug'];
-        $category_post -> cate_post_desc =  $data['cate_post_desc'];
-        $category_post -> cate_post_status =  $data['cate_post_status'];
+        $category_post ->cate_post_name =  $data['cate_post_name'];
+        $category_post ->cate_post_slug =  $data['cate_post_slug'];
+        $category_post ->cate_post_desc =  $data['cate_post_desc'];
+        $category_post ->cate_post_status =  $data['cate_post_status'];
         $category_post-> save();
         Session::put('message','Chỉnh sửa danh mục bài viết thành công');
         return redirect()->back();

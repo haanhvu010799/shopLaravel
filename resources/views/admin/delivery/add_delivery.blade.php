@@ -48,7 +48,7 @@
                                     <input type="text" name="fee_ship" class="form-control fee_ship" id="exampleInputEmail1" placeholder="Tên danh mục">
                                 </div>
                                
-                                <button type="button" name="add_delivery" class="btn btn-info add_delivery">Thêm phí vận chuyển</button>
+                                <button type="button" name="add_delivery" id="add_delivery" class="btn btn-info add_delivery">Thêm phí vận chuyển</button>
                                 </form>
                             </div>
 

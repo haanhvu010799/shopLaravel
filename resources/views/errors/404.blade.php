@@ -11,6 +11,6 @@
 			text-align: center;
 		}
 	</style>
-	<h1>404 ko tìm thấy</h1>
+	<h1>Trang này không tồn tại</h1>
 </body>
 </html>

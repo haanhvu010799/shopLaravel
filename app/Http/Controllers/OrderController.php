@@ -60,6 +60,7 @@ class OrderController extends Controller
 				$product_sold = $product->product_sold;
 				//Thêm để đưa vô thống kê
 				$product_price= $product->product_price;
+				$product_cost= $product->product_cost;
 				$now= Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
 				foreach($data['quantity'] as $key2 => $qty){
@@ -69,11 +70,11 @@ class OrderController extends Controller
 								$product->product_sold = $product_sold + $qty;
 								$product->save();
 
-								//Thống kế lợi nhuận doanh thu
+								//Thống kế lợi nhuận doanh thu đưa vào bản Statistic
 								$quantity+= $qty;
 								$total_order+=1;
 								$sales+=$product_price*$qty;
-								$profit=$sales-($sales*0.5);
+								$profit=$sales -($product_cost*$qty);
 						}
 								
 				}

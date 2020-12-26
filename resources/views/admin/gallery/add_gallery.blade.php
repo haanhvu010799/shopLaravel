@@ -30,7 +30,7 @@
                             </div>   
                         </form>
                         <div class="panel-body">
-                            <input type="hidden" value="{{$pro_id}}" name="pro_id" class="pro_id">
+                            <input type="hidden" value="{{$pro_id}}" name="pro_id" class="pro_id" id="pro_id">
                             <form>
                                 @csrf
                             <div id="gallery_load"> 

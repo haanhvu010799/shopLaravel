@@ -49,6 +49,7 @@ class ProductController extends Controller
         $data['product_quantity'] = $request->product_quantity;
         $data['product_slug'] = $request->product_slug;
         $data['product_price'] = $request->product_price;
+        $data['product_cost']= $request->product_cost;
         $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;
         $data['category_id'] = $request->product_cate;
@@ -110,6 +111,7 @@ class ProductController extends Controller
         $output['product_desc']= $product->product_desc;
         $output['product_content']= $product->product_content;
         $output['product_price']= number_format($product->product_price,0,',','.').'VND';
+        $data['product_cost']= number_format($product->product_cost,0,',','.').'VND';
         $output['product_image']= '<p><img width="100%" src="public/uploads/product/'.$product->product_image.'"> </p>';
         echo json_encode($output);
     }
@@ -120,6 +122,7 @@ class ProductController extends Controller
         $data['product_quantity'] = $request->product_quantity;
         $data['product_slug'] = $request->product_slug;
         $data['product_price'] = $request->product_price;
+        $data['product_cost'] = $request->product_price;
         $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;
         $data['category_id'] = $request->product_cate;

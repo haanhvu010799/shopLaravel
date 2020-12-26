@@ -47,7 +47,8 @@
             <th>Hình ảnh miêu tả</th>
             <th>Số lượng</th>
             <th>Slug</th>
-            <th>Giá</th>
+            <th>Giá bán ra</th>
+            <th>Giá nhập vào</th>
             <th>Hình sản phẩm</th>
             <th>Danh mục</th>
             <th>Thương hiệu</th>
@@ -65,7 +66,8 @@
             <td><a href="{{url('/add-gallery/'.$pro->product_id)}}">Thêm hình ảnh vào trang </td>
             <td>{{ $pro->product_quantity }}</td>
             <td>{{ $pro->product_slug }}</td>
-            <td>{{ number_format($pro->product_price,0,',','.') }}đ</td>
+            <td>{{ number_format($pro->product_price,0,',','.')}}đ</td>
+            <td>{{ number_format($pro->product_cost,0,',','.')}}đ</td>
             <td><img src="public/uploads/product/{{ $pro->product_image }}" height="100" width="100"></td>
             <td>{{ $pro->category_name }}</td>
             <td>{{ $pro->brand_name }}</td>

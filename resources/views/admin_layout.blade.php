@@ -228,7 +228,299 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-<!-- Biểu đồ Morris -->
+
+
+<!-- Script xử lý  Slug thành không dấu -->
+<script type="text/javascript">
+    function ChangeToSlug()
+        {
+            var slug;
+
+            //Lấy text từ thẻ input title
+            slug = document.getElementById("slug").value;
+            slug = slug.toLowerCase();
+            //Đổi ký tự có dấu thành không dấu
+                slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+                slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+                slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+                slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+                slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+                slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+                slug = slug.replace(/đ/gi, 'd');
+                //Xóa các ký tự đặt biệt
+                slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+                //Đổi khoảng trắng thành ký tự gạch ngang
+                slug = slug.replace(/ /gi, "-");
+                //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+                //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+                slug = slug.replace(/\-\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-\-/gi, '-');
+                slug = slug.replace(/\-\-/gi, '-');
+                //Xóa các ký tự gạch ngang ở đầu và cuối
+                slug = '@' + slug + '@';
+                slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+                //In slug ra textbox có id “slug”
+            document.getElementById('convert_slug').value = slug;
+        }
+</script>
+<!-- Scipt xử lý tồn kho -->
+<script type="text/javascript">
+    $('.update_quantity_order').click(function(){
+        var order_product_id = $(this).data('product_id');
+        var order_qty = $('.order_qty_'+order_product_id).val();
+        var order_code = $('.order_code').val();
+        var _token = $('input[name="_token"]').val();
+        // alert(order_product_id);
+        // alert(order_qty);
+        // alert(order_code);
+        $.ajax({
+                url : '{{url('/update-qty')}}',
+
+                method: 'POST',
+
+                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_code:order_code},
+                // dataType:"JSON",
+                success:function(data){
+
+                    alert('Cập nhật số lượng thành công');
+
+                   location.reload();
+
+
+
+
+                }
+        });
+
+    });
+</script>
+<!-- Script xử lý đơn đặt hàng -->
+<script type="text/javascript">
+    $('.order_details').change(function(){
+        var order_status = $(this).val();
+        var order_id = $(this).children(":selected").attr("id");
+        var _token = $('input[name="_token"]').val();
+
+        //lay ra so luong
+        quantity = [];
+        $("input[name='product_sales_quantity']").each(function(){
+            quantity.push($(this).val());
+        });
+        //lay ra product id
+        order_product_id = [];
+        $("input[name='order_product_id']").each(function(){
+            order_product_id.push($(this).val());
+        });
+        j = 0;
+        for(i=0;i<order_product_id.length;i++){
+            //so luong khach dat
+            var order_qty = $('.order_qty_' + order_product_id[i]).val();
+            //so luong ton kho
+            var order_qty_storage = $('.order_qty_storage_' + order_product_id[i]).val();
+
+            if(parseInt(order_qty)>parseInt(order_qty_storage)){
+                j = j + 1;
+                if(j==1){
+                    alert('Không đủ hàng tồn kho');
+                }
+                $('.color_qty_'+order_product_id[i]).css('background','#000');
+            }
+        }
+        if(j==0){
+
+                $.ajax({
+                        url : '{{url('/update-order-qty')}}',
+                            method: 'POST',
+                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, order_product_id:order_product_id},
+                            success:function(data){
+                                alert('Thay đổi tình trạng đơn hàng thành công');
+                                location.reload();
+                            }
+                });
+
+        }
+
+    });
+</script>
+<!-- Xử lý giao hàng -->
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        fetch_delivery();
+
+        function fetch_delivery(){
+            var _token = $('input[name="_token"]').val();
+             $.ajax({
+                url : '{{url('/select-feeship')}}',
+                method: 'POST',
+                data:{_token:_token},
+                success:function(data){
+                   $('#load_delivery').html(data);
+                }
+            });
+        }
+        $(document).on('blur','.fee_feeship_edit',function(){
+
+            var feeship_id = $(this).data('feeship_id');
+            var fee_value = $(this).text();
+             var _token = $('input[name="_token"]').val();
+            // alert(feeship_id);
+            // alert(fee_value);
+            $.ajax({
+                url : '{{url('/update-delivery')}}',
+                method: 'POST',
+                data:{feeship_id:feeship_id, fee_value:fee_value, _token:_token},
+                success:function(data){
+                   fetch_delivery();
+                }
+            });
+
+        });
+        $('.add_delivery').click(function(){
+
+           var city = $('.city').val();
+           var province = $('.province').val();
+           var wards = $('.wards').val();
+           var fee_ship = $('.fee_ship').val();
+            var _token = $('input[name="_token"]').val();
+           // alert(city);
+           // alert(province);
+           // alert(wards);
+           // alert(fee_ship);
+            $.ajax({
+                url : '{{url('/insert-delivery')}}',
+                method: 'POST',
+                data:{city:city, province:province, _token:_token, wards:wards, fee_ship:fee_ship},
+                success:function(data){
+                   fetch_delivery();
+                }
+            });
+
+
+        });
+        $('.choose').on('change',function(){
+            var action = $(this).attr('id');
+            var ma_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result = '';
+            // alert(action);
+            //  alert(matp);
+            //   alert(_token);
+
+            if(action=='city'){
+                result = 'province';
+            }else{
+                result = 'wards';
+            }
+            $.ajax({
+                url : '{{url('/select-delivery')}}',
+                method: 'POST',
+                data:{action:action,ma_id:ma_id,_token:_token},
+                success:function(data){
+                   $('#'+result).html(data);
+                }
+            });
+        });
+    })
+
+
+</script>
+
+<!-- script load gallery -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_gallery();
+
+        function load_gallery(){
+            var pro_id = $('#pro_id').val();
+
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url : "{{url('/select-gallery')}}",
+                method: "POST",
+                data:{"pro_id": pro_id,"_token": _token},
+                success:function(data){
+                    $('#gallery_load').html(data);
+
+                }
+            });
+        }
+
+        $('#file').change(function(){
+            var error='';
+            var files=$('#file')[0].files;
+            if(files.length>10){
+                error+='<p>Vui lòng chọn tối đa 10 ảnh</p>'
+            }else if(files.size>2000000){
+                error+='<p>Vượt quá kích thước ảnh cho phép</p>'
+            }
+            if(error==''){
+
+            }else {
+                $('#file').val('');
+                $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+                return false;
+            }
+
+
+        });
+
+        $(document).on('blur','.edit_gal_name',function(){
+            var gal_id=$(this).data('gal_id');
+            var gal_text= $(this).text();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url : '{{url('/update-gallery-name')}}',
+                method: "POST",
+                data:{gal_id: gal_id, gal_text: gal_text, _token: _token},
+                success:function(data){
+                   load_gallery();
+                   $('#error_gallery').html('<span class="text-danger">Cập nhật hình ảnh thành công </span>');
+                }
+            });
+        });
+         $(document).on('click','.delete_gallery',function(){
+            var gal_id=$(this).data('gal_id');
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url : '{{url('/xoa-gallery')}}',
+                method: "POST",
+                data:{gal_id: gal_id, _token: _token},
+                success:function(data){
+                   load_gallery();
+                   $('#error_gallery').html('<span class="text-danger">Xóa hình ảnh thành công </span>');
+                }
+            });
+        });
+
+
+
+    });
+</script>
+<!-- Các script Ckeditor -->
+<script type="text/javascript">
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+    } );
+</script>
+<script type="text/javascript">
+        $.validate({
+
+        });
+</script>
+ <script>
+       // Replace the <textarea id="editor1"> with a CKEditor
+       // instance, using default configuration.
+        CKEDITOR.replace('ckeditor');
+        CKEDITOR.replace('ckeditor1');
+        CKEDITOR.replace('ckeditor2');
+        CKEDITOR.replace('ckeditor3');
+        CKEDITOR.replace('id4');
+</script>
+<!-- Script dựng thống kê -->
 <script type="text/javascript">
 
     $("#datepicker").datepicker({
@@ -311,314 +603,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>
 
-
-
-<script type="text/javascript">
-
-    function ChangeToSlug()
-        {
-            var slug;
-
-            //Lấy text từ thẻ input title
-            slug = document.getElementById("slug").value;
-            slug = slug.toLowerCase();
-            //Đổi ký tự có dấu thành không dấu
-                slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
-                slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
-                slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
-                slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
-                slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
-                slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
-                slug = slug.replace(/đ/gi, 'd');
-                //Xóa các ký tự đặt biệt
-                slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
-                //Đổi khoảng trắng thành ký tự gạch ngang
-                slug = slug.replace(/ /gi, "-");
-                //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
-                //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
-                slug = slug.replace(/\-\-\-\-\-/gi, '-');
-                slug = slug.replace(/\-\-\-\-/gi, '-');
-                slug = slug.replace(/\-\-\-/gi, '-');
-                slug = slug.replace(/\-\-/gi, '-');
-                //Xóa các ký tự gạch ngang ở đầu và cuối
-                slug = '@' + slug + '@';
-                slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-                //In slug ra textbox có id “slug”
-            document.getElementById('convert_slug').value = slug;
-        }
-
-
-
-
-</script>
-<script type="text/javascript">
-    $('.update_quantity_order').click(function(){
-        var order_product_id = $(this).data('product_id');
-        var order_qty = $('.order_qty_'+order_product_id).val();
-        var order_code = $('.order_code').val();
-        var _token = $('input[name="_token"]').val();
-        // alert(order_product_id);
-        // alert(order_qty);
-        // alert(order_code);
-        $.ajax({
-                url : '{{url('/update-qty')}}',
-
-                method: 'POST',
-
-                data:{_token:_token, order_product_id:order_product_id ,order_qty:order_qty ,order_code:order_code},
-                // dataType:"JSON",
-                success:function(data){
-
-                    alert('Cập nhật số lượng thành công');
-
-                   location.reload();
-
-
-
-
-                }
-        });
-
-    });
-</script>
-<script type="text/javascript">
-    $('.order_details').change(function(){
-        var order_status = $(this).val();
-        var order_id = $(this).children(":selected").attr("id");
-        var _token = $('input[name="_token"]').val();
-
-        //lay ra so luong
-        quantity = [];
-        $("input[name='product_sales_quantity']").each(function(){
-            quantity.push($(this).val());
-        });
-        //lay ra product id
-        order_product_id = [];
-        $("input[name='order_product_id']").each(function(){
-            order_product_id.push($(this).val());
-        });
-        j = 0;
-        for(i=0;i<order_product_id.length;i++){
-            //so luong khach dat
-            var order_qty = $('.order_qty_' + order_product_id[i]).val();
-            //so luong ton kho
-            var order_qty_storage = $('.order_qty_storage_' + order_product_id[i]).val();
-
-            if(parseInt(order_qty)>parseInt(order_qty_storage)){
-                j = j + 1;
-                if(j==1){
-                    alert('Không đủ hàng tồn kho');
-                }
-                $('.color_qty_'+order_product_id[i]).css('background','#000');
-            }
-        }
-        if(j==0){
-
-                $.ajax({
-                        url : '{{url('/update-order-qty')}}',
-                            method: 'POST',
-                            data:{_token:_token, order_status:order_status ,order_id:order_id ,quantity:quantity, order_product_id:order_product_id},
-                            success:function(data){
-                                alert('Thay đổi tình trạng đơn hàng thành công');
-                                location.reload();
-                            }
-                });
-
-        }
-
-    });
-</script>
-<!-- script load gallery -->
- <script type="text/javascript">
-    $(document).ready(function(){
-        load_gallery();
-
-        function load_gallery(){
-            var pro_id = $('.pro_id').val();
-
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url : '{{url('/select-gallery')}}',
-                method: "POST",
-                data:{pro_id: pro_id,_token: _token},
-                success:function(data){
-                    $('#gallery_load').html(data);
-
-                }
-            });
-        }
-
-        $('#file').change(function(){
-            var error='';
-            var files=$('#file')[0].files;
-            if(files.length>10){
-                error+='<p>Vui lòng chọn tối đa 10 ảnh</p>'
-            }else if(files.size>2000000){
-                error+='<p>Vượt quá kích thước ảnh cho phép</p>'
-            }
-            if(error==''){
-
-            }else {
-                $('#file').val('');
-                $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
-                return false;
-            }
-
-
-        });
-
-        $(document).on('blur','.edit_gal_name',function(){
-            var gal_id=$(this).data('gal_id');
-            var gal_text= $(this).text();
-            var _token = $('input[name="_token"]').val();
-
-            $.ajax({
-                url : '{{url('/update-gallery-name')}}',
-                method: "POST",
-                data:{gal_id: gal_id, gal_text: gal_text, _token: _token},
-                success:function(data){
-                   load_gallery();
-                   $('#error_gallery').html('<span class="text-danger">Cập nhật hình ảnh thành công </span>');
-                }
-            });
-        });
-         $(document).on('click','.delete_gallery',function(){
-            var gal_id=$(this).data('gal_id');
-            var _token = $('input[name="_token"]').val();
-
-            $.ajax({
-                url : '{{url('/xoa-gallery')}}',
-                method: "POST",
-                data:{gal_id: gal_id, _token: _token},
-                success:function(data){
-                   load_gallery();
-                   $('#error_gallery').html('<span class="text-danger">Xóa hình ảnh thành công </span>');
-                }
-            });
-        });
-
-
-
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        fetch_delivery();
-
-        function fetch_delivery(){
-            var _token = $('input[name="_token"]').val();
-             $.ajax({
-                url : '{{url('/select-feeship')}}',
-                method: 'POST',
-                data:{_token:_token},
-                success:function(data){
-
-                   $('#load_delivery').html(data);
-                }
-            });
-        }
-        $(document).on('blur','.fee_feeship_edit',function(){
-
-            var feeship_id = $(this).data('feeship_id');
-            var fee_value = $(this).text();
-             var _token = $('input[name="_token"]').val();
-            // alert(feeship_id);
-            // alert(fee_value);
-            $.ajax({
-                url : '{{url('/update-delivery')}}',
-                method: 'POST',
-                data:{feeship_id:feeship_id, fee_value:fee_value, _token:_token},
-                success:function(data){
-                   fetch_delivery();
-                }
-            });
-
-        });
-        $('.add_delivery').click(function(){
-
-           var city = $('.city').val();
-           var province = $('.province').val();
-           var wards = $('.wards').val();
-           var fee_ship = $('.fee_ship').val();
-            var _token = $('input[name="_token"]').val();
-           // alert(city);
-           // alert(province);
-           // alert(wards);
-           // alert(fee_ship);
-            $.ajax({
-                url : '{{url('/insert-delivery')}}',
-                method: 'POST',
-                data:{city:city, province:province, _token:_token, wards:wards, fee_ship:fee_ship},
-                success:function(data){
-                   fetch_delivery();
-                }
-            });
-
-
-        });
-
-        $('.choose').on('change',function(){
-            var action = $(this).attr('id');
-            var ma_id = $(this).val();
-            var _token = $('input[name="_token"]').val();
-            var result = '';
-            // alert(action);
-            //  alert(matp);
-            //   alert(_token);
-
-            if(action=='city'){
-                result = 'province';
-            }else{
-                result = 'wards';
-            }
-            $.ajax({
-                url : '{{url('/select-delivery')}}',
-                method: 'POST',
-                data:{action:action,ma_id:ma_id,_token:_token},
-                success:function(data){
-                   $('#'+result).html(data);
-                }
-            });
-        });
-        // $(document).on('click','.delete-delivery',function(){
-        //     var feeship_id= $(this).data('feeship_id');
-        //     var _token = $('input[name="_token"]').val();
-        //     $.ajax({
-        //         url : '{{url('/del-delivery')}}',
-        //         method: "POST",
-        //         data:{feeship_id:feeship_id, _token:_token},
-        //         success:function(data){
-        //             fetch_delivery();
-        //         }
-        //     });
-
-        // });
-    });
-
-
-</script>
-<script type="text/javascript">
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-    } );
-</script>
-<script type="text/javascript">
-        $.validate({
-
-        });
-</script>
- <script>
-       // Replace the <textarea id="editor1"> with a CKEditor
-       // instance, using default configuration.
-        CKEDITOR.replace('ckeditor');
-        CKEDITOR.replace('ckeditor1');
-        CKEDITOR.replace('ckeditor2');
-        CKEDITOR.replace('ckeditor3');
-        CKEDITOR.replace('id4');
-</script>
-
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->
@@ -676,38 +660,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 	});
-	</script>
+</script>
 <!-- calendar -->
-	<script type="text/javascript" src="{{asset('public/backend/js/monthly.js')}}"></script>
-	<script type="text/javascript">
-		$(window).load( function() {
+<script type="text/javascript" src="{{asset('public/backend/js/monthly.js')}}"></script>
+<script type="text/javascript">
+	$(window).load( function() {
 
-			$('#mycalendar').monthly({
-				mode: 'event',
-
-			});
-
-			$('#mycalendar2').monthly({
-				mode: 'picker',
-				target: '#mytarget',
-				setWidth: '250px',
-				startHidden: true,
-				showTrigger: '#mytarget',
-				stylePast: true,
-				disablePast: true
-			});
-
-		switch(window.location.protocol) {
-		case 'http:':
-		case 'https:':
-		// running on a server, should be good.
-		break;
-		case 'file:':
-		alert('Just a heads-up, events will not work when run locally.');
-		}
+		$('#mycalendar').monthly({
+			mode: 'event',
 
 		});
-	</script>
+
+		$('#mycalendar2').monthly({
+			mode: 'picker',
+			target: '#mytarget',
+			setWidth: '250px',
+			startHidden: true,
+			showTrigger: '#mytarget',
+			stylePast: true,
+			disablePast: true
+		});
+
+	switch(window.location.protocol) {
+	case 'http:':
+	case 'https:':
+	// running on a server, should be good.
+	break;
+	case 'file:':
+	alert('Just a heads-up, events will not work when run locally.');
+	}
+
+	});
+</script>
 	<!-- //calendar -->
+
+
 </body>
 </html>
