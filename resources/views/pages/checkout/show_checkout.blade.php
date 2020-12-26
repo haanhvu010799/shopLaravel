@@ -49,8 +49,10 @@
 										 <div class="form-group">
 		                                    <label for="exampleInputPassword1">Chọn hình thức thanh toán</label>
 		                                      <select name="payment_select"  class="form-control input-sm m-bot15 payment_select">
-		                                            <option value="0">Qua chuyển khoản</option>
+		                                            <option value="0">Chuyển khoản ngân hàng</option>
 		                                            <option value="1">Tiền mặt</option>
+		                                            <option value="3">Thanh toán Momo </option>
+		                                           
 		                                    </select>
 		                                </div>
 									</div>
