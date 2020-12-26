@@ -81,7 +81,7 @@ class OrderController extends Controller
 			// Lưu doanh số vào bảng CSDL	
 			if($statistic_count>0){
 				$statistic_update= Statistic::where('order_date',$order_date)->first();
-				$statistic_update->sales=$statistic_update->sales=$sales + $profit;
+				$statistic_update->sales=$statistic_update->sales + $sales;
 				$statistic_update->profit=$statistic_update->profit+ $profit;
 				$statistic_update->quantity=$statistic_update->quantity + $quantity;
 				$statistic_update->total_order=$statistic_update->total_order + $total_order;
@@ -96,22 +96,50 @@ class OrderController extends Controller
 				$statistic_new->save();
 			}
 		}
-		elseif($order->order_status!=2 && $order->order_status!=3){
-			foreach($data['order_product_id'] as $key => $product_id){
+		// elseif($order->order_status==3 ){
+		// 	$stat_new=new Statistic();
+		// 	$total_order= $stat_new->total_order;
+		// 	$sales = $stat_new->sales;
+		// 	$profit =$stat_new->profit;
+		// 	$quantity=$stat_new->quantity;
+
+		// 	foreach($data['order_product_id'] as $key => $product_id){
 				
-				$product = Product::find($product_id);
-				$product_quantity = $product->product_quantity;
-				$product_sold = $product->product_sold;
-				foreach($data['quantity'] as $key2 => $qty){
-						if($key==$key2){
-								$pro_remain = $product_quantity + $qty;
-								$product->product_quantity = $pro_remain;
-								$product->product_sold = $product_sold - $qty;
-								$product->save();
-						}
-				}
-			}
-		}
+		// 		$product = Product::find($product_id);
+		// 		$product_quantity = $product->product_quantity;
+		// 		$product_sold = $product->product_sold;
+		// 		foreach($data['quantity'] as $key2 => $qty){
+		// 				if($key==$key2){
+		// 						$pro_remain = $product_quantity + $qty;
+		// 						$product->product_quantity = $pro_remain;
+		// 						$product->product_sold = $product_sold - $qty;
+		// 						$product->save();
+
+		// 						//Trừ đi
+		// 						$quantity-= $qty;
+		// 						$total_order-=1;
+		// 						$sales-=$product_price*$qty;
+		// 						$profit-=$sales-($sales*0.5);
+		// 				}
+		// 		}
+		// 	}
+		// 	if($statistic_count>0){
+		// 		$statistic_update= Statistic::where('order_date',$order_date)->first();
+		// 		$statistic_update->sales=$statistic_update->sales=$sales - $sales;
+		// 		$statistic_update->profit=$statistic_update->profit- $profit;
+		// 		$statistic_update->quantity=$statistic_update->quantity - $quantity;
+		// 		$statistic_update->total_order=$statistic_update->total_order - $total_order;
+		// 		$statistic_update->save();
+		// 	}else{
+		// 		$statistic_new= new Statistic();
+		// 		$statistic_new->order_date = $order_date;
+		// 		$statistic_new->sales = $sales;
+		// 		$statistic_new->profit = $profit;
+		// 		$statistic_new->quantity = $quantity;
+		// 		$statistic_new->total_order = $total_order;
+		// 		$statistic_new->save();
+		// 	}
+		// }
 				
 	}
 

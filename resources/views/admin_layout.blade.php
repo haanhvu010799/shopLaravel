@@ -252,13 +252,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
     $(document).ready(function(){
         // chart30daysorder();
-        var chart= new Morris.Line({
+        var chart= new Morris.Bar({
             element:'chart',
             parseTime: false,
             hideHover:'auto',
             xkey:'period',
-            ykeys:['order','sales','profit','quantity'],
-            labels: ['đơn hàng','doanh số','lợi nhuận','số lượng']
+            ykeys:['order','sales','profit'],
+            labels: ['đơn hàng','doanh số','lợi nhuận']
 
         });
 
