@@ -251,8 +251,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         duration:"slow"
     })
     $(document).ready(function(){
-         chart30daysorder();
-        var chart= new Morris.Bar({
+        // chart30daysorder();
+        var chart= new Morris.Line({
             element:'chart',
             parseTime: false,
             hideHover:'auto',
@@ -407,7 +407,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             if(parseInt(order_qty)>parseInt(order_qty_storage)){
                 j = j + 1;
                 if(j==1){
-                    alert('Số lượng bán trong kho không đủ');
+                    alert('Không đủ hàng tồn kho');
                 }
                 $('.color_qty_'+order_product_id[i]).css('background','#000');
             }

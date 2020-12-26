@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use Carbon\Carbon;
 use App\Feeship;
 use App\Shipping;
 use App\Order;
@@ -11,6 +12,7 @@ use App\OrderDetails;
 use App\Customer;
 use App\Coupon;
 use App\Product;
+use App\Statistic;
 use PDF;
 session_start();
 
@@ -35,22 +37,66 @@ class OrderController extends Controller
 		$order = Order::find($data['order_id']);
 		$order->order_status = $data['order_status'];
 		$order->save();
+
+		// Xử lý theo ngày tháng năm
+		$order_date= $order->order_date;
+		$statistic= Statistic::where('order_date',$order_date)->get();
+		if($statistic){ 
+			$statistic_count=$statistic->count();
+		}else{
+			$statistic_count=0;
+		}
+
 		if($order->order_status==2){
+			$total_order=0;
+			$sales = 0;
+			$profit =0;
+			$quantity=0;
+
 			foreach($data['order_product_id'] as $key => $product_id){
 				
 				$product = Product::find($product_id);
 				$product_quantity = $product->product_quantity;
 				$product_sold = $product->product_sold;
+				//Thêm để đưa vô thống kê
+				$product_price= $product->product_price;
+				$now= Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
 				foreach($data['quantity'] as $key2 => $qty){
 						if($key==$key2){
 								$pro_remain = $product_quantity - $qty;
 								$product->product_quantity = $pro_remain;
 								$product->product_sold = $product_sold + $qty;
 								$product->save();
+
+								//Thống kế lợi nhuận doanh thu
+								$quantity+= $qty;
+								$total_order+=1;
+								$sales+=$product_price*$qty;
+								$profit=$sales-($sales*0.5);
 						}
+								
 				}
 			}
-		}elseif($order->order_status!=2 && $order->order_status!=3){
+			// Lưu doanh số vào bảng CSDL	
+			if($statistic_count>0){
+				$statistic_update= Statistic::where('order_date',$order_date)->first();
+				$statistic_update->sales=$statistic_update->sales=$sales + $profit;
+				$statistic_update->profit=$statistic_update->profit+ $profit;
+				$statistic_update->quantity=$statistic_update->quantity + $quantity;
+				$statistic_update->total_order=$statistic_update->total_order + $total_order;
+				$statistic_update->save();
+			}else{
+				$statistic_new= new Statistic();
+				$statistic_new->order_date = $order_date;
+				$statistic_new->sales = $sales;
+				$statistic_new->profit = $profit;
+				$statistic_new->quantity = $quantity;
+				$statistic_new->total_order = $total_order;
+				$statistic_new->save();
+			}
+		}
+		elseif($order->order_status!=2 && $order->order_status!=3){
 			foreach($data['order_product_id'] as $key => $product_id){
 				
 				$product = Product::find($product_id);
@@ -66,9 +112,10 @@ class OrderController extends Controller
 				}
 			}
 		}
-
-
+				
 	}
+
+
 	public function print_order($checkout_code){
 		$pdf = \App::make('dompdf.wrapper');
 		$pdf->loadHTML($this->print_order_convert($checkout_code));

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Cart;
+use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -46,10 +47,14 @@ class CheckoutController extends Controller
          $order->order_code = $checkout_code;
 
          date_default_timezone_set('Asia/Ho_Chi_Minh');
-         $order->created_at = now();
+         // $order->created_at = now();
+         $today= Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
+         $order_date=Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+         $order->created_at=$today;
+         $order->order_date= $order_date;
          $order->save();
 
-         if(Session::get('cart')==true){
+        if(Session::get('cart')==true){
             foreach(Session::get('cart') as $key => $cart){
                 $order_details = new OrderDetails;
                 $order_details->order_code = $checkout_code;
