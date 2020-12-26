@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Gửi mail google</title>
+	<title>Kiểm tra gửi email thử</title>
 </head>
 <body>
 	<h1>Mail được gửi từ : {{$name}}</h1>
