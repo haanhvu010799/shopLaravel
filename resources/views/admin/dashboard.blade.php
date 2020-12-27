@@ -1,6 +1,6 @@
 @extends('admin_layout')
 @section('admin_content')
-<div class="container-fluid">
+<div class="table-agile-info">
 	<style type="text/css">
 		p.title_thongke{
 			text-align: center;
@@ -9,9 +9,10 @@
 		}
 	</style>
 	<div class="row">
-		<p class="title_thongke">Thống kế doanh số bán hàng</p>
-		<form autocomplete="off">
+		<p class="title_thongke, panel-heading">Thống kế doanh số bán hàng</p>
+		<form style="padding:20px;" autocomplete="off">
 			@csrf
+
 			<div class="col-md-2">
 				<p>Từ ngày: <input type="text" id="datepicker" class="form-control"></p>
 				</br>
@@ -33,7 +34,7 @@
 				</p>
 			</div>
 		</form >
-		<div class="col-md-12">
+		<div class="col-md-12" style="color: black;">
 			
 			<div id="chart" style="height: 250px;"></div>
 			
