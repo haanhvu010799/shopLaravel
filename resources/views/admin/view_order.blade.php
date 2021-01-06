@@ -173,9 +173,9 @@
             @endif
 
             </td>
-            <td>{{number_format($details->product_price ,0,',','.')}}đ</td>
-            <td>{{number_format($details->product_cost ,0,',','.')}}đ</td>
-            <td>{{number_format($subtotal ,0,',','.')}}đ</td>
+            <td>{{number_format($details->product_price,0,',','.')}}đ</td>
+            <td>{{number_format($details->product_cost,0,',','.')}}đ</td>
+            
           </tr>
         @endforeach
           <tr>

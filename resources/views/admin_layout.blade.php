@@ -145,7 +145,7 @@
             <li><a href="{{URL::to('/all-post')}}">Danh sách các bài viết</a></li>
 
                     </ul>
-                </li>
+              <!--   </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-th-list"></i>
@@ -153,21 +153,21 @@
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-category-product')}}">Thêm danh mục sản phẩm</a></li>
-						<li><a href="{{URL::to('/all-category-product')}}">Danh sách danh mục sản phẩm</a></li>
+						
                         <li><a href="{{URL::to('/add-brand-product')}}">Thêm thương hiệu sản phẩm</a></li>
-                        <li><a href="{{URL::to('/all-brand-product')}}">Danh sách thương hiệu sản phẩm</a></li>
+                        
 
                     </ul>
                 </li>
-
+ -->
                   <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-shopping-basket"></i>
-                        <span>Sản phẩm</span>
+                        <span>Quản lý hàng hóa</span>
                     </a>
                     <ul class="sub">
-						<li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm</a></li>
-						<li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>
+                        <li><a href="{{URL::to('/all-category-product')}}">Danh mục sản phẩm</a></li><li><a href="{{URL::to('/all-brand-product')}}">Thương hiệu sản phẩm</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>
 
                     </ul>
                 </li>

@@ -47,7 +47,7 @@
 									<span>{{number_format($value->product_price,0,',','.').'VNĐ'}}</span>
 
 									<label>Số lượng:</label>
-									<input name="qty" type="number" min="1" class="cart_product_qty_{{$value->product_id}}"  value="1" />
+									<input  name="qty" type="number" data-validation="number" min="1" class="cart_product_qty_{{$value->product_id}}"  value="1" />
 									<input name="productid_hidden" type="hidden"  value="{{$value->product_id}}" />
 								</span>
 								<input type="button" value="Thêm giỏ hàng" class="btn btn-primary btn-sm add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart">
@@ -126,9 +126,9 @@
 		                                            <img src="{{URL::to('public/uploads/product/'.$lienquan->product_image)}}" alt="" />
 		                                            <h2>{{number_format($lienquan->product_price,0,',','.').' '.'VNĐ'}}</h2>
 		                                            <p>{{$lienquan->product_name}}</p>
-																								<input style="margin:auto; display:block;" type="button" value="Thêm giỏ hàng" class="btn btn-default add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart">
-																							</a>
-																						<!-- </div> -->
+														<input style="margin:auto; display:block;" type="button" value="Thêm giỏ hàng" class="btn btn-default add-to-cart" data-id_product="{{$value->product_id}}" name="add-to-cart">
+													</a>
+												<!-- </div> -->
                                 			</div>
 										</div>
 									</div>
