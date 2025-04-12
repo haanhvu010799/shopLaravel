@@ -1,4 +1,3 @@
-<h1> Báo cáo môn lập trình ứng dụng web, shop bán hàng sử dụng Laravel Framework  </h1>
 
 # ShopLaravel - E-commerce Platform using Laravel
 
